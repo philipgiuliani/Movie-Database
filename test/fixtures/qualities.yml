@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  resoulution_x: 1
+  resolution_y: 1
+
+two:
+  name: MyString
+  resoulution_x: 1
+  resolution_y: 1

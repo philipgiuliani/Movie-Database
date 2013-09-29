@@ -1,0 +1,23 @@
+<h2>Movie Database</h2>
+
+<h3>Die Letzten 5 hinzugefügten Filme</h3>
+<ul>
+  <% @movies_new.each do |movie| %>
+    <li><%= "#{movie.title} - hinzugefügt von #{movie.created_by_id.full_name}" %></li>
+  <% end %>
+</ul>
+
+<h3>Die Letzten 5 aktualisierten Filme</h3>
+<ul>
+  <% @movies_updated.each do |movie| %>
+    <li><%= "#{movie.title} - aktualisiert von #{movie.updated_by_id.full_name}" %></li>
+  <% end %>
+</ul>
+
+<% if user_signed_in? %>
+	<%= link_to "Filme", movies_path %>
+	<%= link_to "Ausloggen", logout_path, method: :delete %>
+<% else %>
+	<%= link_to "Einloggen", login_path %>
+	<%= link_to "Registrieren", new_user_path %>
+<% end %>
