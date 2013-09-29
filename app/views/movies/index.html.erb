@@ -1,0 +1,36 @@
+<h2>Filme</h2>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Release Year</th>
+			<th>Quality</th>
+			<th>3D</th>
+			<th>Information</th>
+			<th>Created By</th>
+			<th>Updated By</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @movies.each do |movie| %>
+		<tr>
+			<td><%= movie.id %></td>
+			<td><%= movie.title %></td>
+			<td><%= movie.release_year %></td>
+			<td><%= Quality.find(movie.quality_id).name %></td>
+			<td><%= movie.three_dimensional %></td>
+			<td><%= movie.information %></td>
+			<td><%= movie.created_by_id.full_name %></td>
+			<td><%= movie.updated_by_id.full_name %></td>
+			<td>
+				<%= link_to 'Bearbeiten', edit_movie_path(movie) %>
+				<%= link_to 'Löschen', movie_path(movie), method: :delete %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= link_to 'Film hinzufügen', new_movie_path %>
