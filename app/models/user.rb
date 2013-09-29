@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :lastname, presence: true
 
   has_many :movies
-
+  
   def full_name
     "#{self.firstname} #{self.lastname}"
   end
