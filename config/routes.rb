@@ -3,8 +3,11 @@ Moviedatabase::Application.routes.draw do
 
   get "home", to:  "home#index"
 
-  resources :users, only: [:new, :create]
-  resources :movies
+  resources :users
+  resources :movies do
+    resources :ratings, only: [:create, :update]
+  end
+
   get "login", to: "sessions#new", as: "login"
   post "sessions" => "sessions#create", as: "sessions"
   delete "logout" => "sessions#destroy", as: "logout"

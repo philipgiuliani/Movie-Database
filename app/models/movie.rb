@@ -4,12 +4,14 @@ class Movie < ActiveRecord::Base
   belongs_to :quality
   belongs_to :created_by_id, :class_name => 'User', :foreign_key => 'created_by_id'
   belongs_to :updated_by_id, :class_name => 'User', :foreign_key => 'updated_by_id'
+  has_many :ratings, dependent: :destroy
 
   before_create :before_create
   before_update :before_update
 
   validates :title, presence: true
   validates :editing_user, presence: true
+  validates :quality, presence: true
   validates :release_year, presence: true, :length => { :is => 4 }, numericality: { only_integer: true }
 
   private

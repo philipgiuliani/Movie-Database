@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates :lastname, presence: true
 
   has_many :movies
+  has_many :ratings, dependent: :destroy
   
   def full_name
     "#{self.firstname} #{self.lastname}"

@@ -8,6 +8,23 @@
 </head>
 <body>
 
+
+<header>
+	<h1>Film Datenbank</h1>
+	<nav>
+		<%= link_to "Startseite", home_path %>
+		<%= link_to "Filme", movies_path %>
+		<%= link_to "Benutzer", users_path %>
+	</nav>
+</header>
+
+<% if flash[:notice] %>
+	<p style="background:green"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:alert] %>
+	<p style="background:red"><%= flash[:alert] %></p>
+<% end %>
+
 <%= yield %>
 
 </body>

@@ -1,4 +1,4 @@
-<h2>Movie Database</h2>
+<h2>Startseite</h2>
 
 <h3>Die Letzten 5 hinzugefügten Filme</h3>
 <ul>
@@ -14,10 +14,5 @@
   <% end %>
 </ul>
 
-<% if user_signed_in? %>
-	<%= link_to "Filme", movies_path %>
-	<%= link_to "Ausloggen", logout_path, method: :delete %>
-<% else %>
-	<%= link_to "Einloggen", login_path %>
-	<%= link_to "Registrieren", new_user_path %>
-<% end %>
+<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %>
+<%= link_to "Abmelden", logout_path, method: :delete %>

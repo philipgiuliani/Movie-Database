@@ -5,6 +5,12 @@ class MoviesController < ApplicationController
   	@movies = Movie.all(order: "title asc")
   end
 
+  def show
+    @movie = Movie.find(params[:id])
+    @ratings = @movie.ratings.all(order: "created_at desc");
+    @rating = @movie.ratings.build
+  end
+
   def new
   	@movie = Movie.new
   end
