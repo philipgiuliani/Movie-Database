@@ -10,6 +10,7 @@
 			<th>Informationen</th>
 			<th>Hinzugefügt von</th>
 			<th>Aktualisiert von</th>
+			<th>Gesehen</th>
 			<th>Aktionen</th>
 		</tr>
 	</thead>
@@ -24,6 +25,7 @@
 			<td><%= movie.information %></td>
 			<td><%= movie.created_by_id.full_name %></td>
 			<td><%= movie.updated_by_id.full_name %></td>
+			<td><%= @current_user.has_seen?(movie) %></td>
 			<td>
 				<%= link_to 'Bearbeiten', edit_movie_path(movie) %>
 				<%= link_to 'Löschen', movie_path(movie), method: :delete %>

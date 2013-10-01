@@ -15,6 +15,14 @@ class Movie < ActiveRecord::Base
   validates :quality, presence: true
   validates :release_year, presence: true, :length => { :is => 4 }, numericality: { only_integer: true }
 
+  def rating_average_of(average_key)
+    if self.ratings.count > 0
+      self.ratings.sum(average_key) / self.ratings.count
+    else
+      0
+    end
+  end
+
   private
 
   def before_create 

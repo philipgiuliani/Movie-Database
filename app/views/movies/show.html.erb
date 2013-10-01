@@ -6,6 +6,13 @@
 	<b>Information:</b> <%= @movie.information %><br />
 	<b>Hinzugefügt von (am):</b> <%= @movie.created_by_id.full_name %> (<%= @movie.created_at %>)
 </p>
+<h3>Interne Statistiken</h3>
+<p>
+	<b>Gesehen:</b> <%= @movie.seen_movies.count %> mal<br />
+	<b>Bewertet:</b> <%= @movie.ratings.count %> mal<br />
+	<b>Video Bewertung:</b> <%= @movie.rating_average_of(:rating_general) %> Sterne<br />
+	<b>Qualität Bewertung:</b> <%= @movie.rating_average_of(:rating_quality) %> Sterne<br />
+</p>
 
 <%= link_to "Als gesehen markieren", movie_seen_movie_path(@movie, 1), method: :put %>
 
