@@ -38,8 +38,8 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-  	@bookmark = Movie.find(params[:id])
-  	@bookmark.destroy
+  	@movie = Movie.find(params[:id])
+  	@movie.destroy
   	redirect_to movies_path, notice: "Film gelöscht"
   end
 

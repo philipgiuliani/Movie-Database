@@ -1,0 +1,23 @@
+<h2>Benutzer</h2>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Vorname</th>
+			<th>Nachname</th>
+			<th>Aktionen</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+		<tr>
+			<td><%= user.id %></td>
+			<td><%= user.firstname %></td>
+			<td><%= user.lastname %></td>
+			<td>
+				<%= link_to "Profil", user_path(user) %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

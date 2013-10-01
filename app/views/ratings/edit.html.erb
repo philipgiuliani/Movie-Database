@@ -1,0 +1,23 @@
+<%= form_for [@movie, @rating] do |f| %>
+	<% if @rating.errors.any? %>
+	<ul>
+		<% @rating.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	
+	<p>
+		<%= f.label :rating_general %>
+		<%= f.select :rating_general, 10.downto(0).to_a %>
+	</p>
+	<p>
+		<%= f.label :rating_quality %>
+		<%= f.select :rating_quality, 10.downto(0).to_a %>
+	</p>
+	<p>
+		<%= f.label :comment %>
+		<%= f.text_area :comment %>
+	</p>
+	<p><%= f.submit %></p>
+<% end %>

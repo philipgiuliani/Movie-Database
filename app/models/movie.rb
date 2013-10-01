@@ -5,6 +5,7 @@ class Movie < ActiveRecord::Base
   belongs_to :created_by_id, :class_name => 'User', :foreign_key => 'created_by_id'
   belongs_to :updated_by_id, :class_name => 'User', :foreign_key => 'updated_by_id'
   has_many :ratings, dependent: :destroy
+  has_many :seen_movies, dependent: :destroy
 
   before_create :before_create
   before_update :before_update

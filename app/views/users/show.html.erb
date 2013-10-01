@@ -1,0 +1,25 @@
+<h2>Profil von <%= @user.full_name %></h2>
+<b>Vorname:</b> <%= @user.firstname %><br />
+<b>Nachname:</b> <%= @user.lastname %>
+
+<h3>Statistiken</h3>
+<b>Hinzugefügte Filme:</b> <%= @user.movies.count %><br />
+<b>Gesehene Filme:</b> <%= @user.seen_movies.count %>
+
+<h3>Die Letzten 5 Bewertungen</h3>
+<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
+	<p>
+		<b>Film:</b> <%= rating.movie.title %><br />
+		<b>General:</b> <%= rating.rating_general %><br />
+		<b>Qualität:</b> <%= rating.rating_quality %><br />
+		<b>Kommentar:</b> <%= rating.comment %>
+		<hr />
+	</p>
+<% end %>
+
+<h3>Die Letzten gesehenen Filme</h3>
+<ul>
+	<% @user.seen_movies.all(order: "created_at desc", limit: "0,5").each do |seen_movie| %>
+		<li><%= "#{seen_movie.movie.title} am #{seen_movie.created_at}" %></li>
+	<% end %>
+</ul>

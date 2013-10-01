@@ -1,0 +1,50 @@
+<h2><%= @movie.title %></h2>
+<p>
+	<b>Quality:</b> <%= Quality.find(@movie.quality_id).name %><br />
+	<b>Erscheinungsdatum:</b> <%= @movie.release_year %><br />
+	<b>3D:</b> <%= @movie.three_dimensional %><br />
+	<b>Information:</b> <%= @movie.information %><br />
+	<b>Hinzugefügt von (am):</b> <%= @movie.created_by_id.full_name %> (<%= @movie.created_at %>)
+</p>
+
+<%= link_to "Als gesehen markieren", movie_seen_movie_path(@movie, 1), method: :put %>
+
+<h3>Bewertungen</h3>
+<% @movie.ratings.all(order: "created_at desc").each do |rating| %>
+	<p>
+		<b><%= rating.user.full_name %> am <%= rating.created_at %> sagt:<br />
+		<b>General:</b> <%= rating.rating_general %><br />
+		<b>Qualität:</b> <%= rating.rating_quality %><br />
+		<b>Kommentar:</b> <%= rating.comment %>
+		<% if rating.user == @current_user %>
+			<%= link_to "Edit", edit_movie_rating_path(@movie, rating) %>
+			<%= link_to "Delete", movie_rating_path(@movie, rating), method: :delete %>
+		<% end %>
+		<hr />
+	</p>
+<% end %>
+
+<h4>Bewertung schreiben</h4>
+<%= form_for [@movie, @rating] do |f| %>
+	<% if @rating.errors.any? %>
+	<ul>
+		<% @rating.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+	<% end %>
+
+	<p>
+		<%= f.label :rating_general %>
+		<%= f.select :rating_general, 10.downto(0).to_a %>
+	</p>
+	<p>
+		<%= f.label :rating_quality %>
+		<%= f.select :rating_quality, 10.downto(0).to_a %>
+	</p>
+	<p>
+		<%= f.label :comment %>
+		<%= f.text_area :comment %>
+	</p>
+	<p><%= f.submit %></p>
+<% end %>

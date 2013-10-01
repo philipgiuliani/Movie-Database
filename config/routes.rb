@@ -5,7 +5,8 @@ Moviedatabase::Application.routes.draw do
 
   resources :users
   resources :movies do
-    resources :ratings, only: [:create, :update]
+    resources :ratings, only: [:create, :edit, :update, :destroy]
+    resources :seen_movies, on: :member
   end
 
   get "login", to: "sessions#new", as: "login"
