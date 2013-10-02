@@ -13,3 +13,7 @@ Quality.create([
 	{name: "Full-HD (1080p)", resolution_x: 1920, resolution_y: 1080},
 	{name: "Ultra-HD (2160p)", resolution_x: 3840, resolution_y: 2160}
 ]);
+
+Movie.create([
+	
+]);

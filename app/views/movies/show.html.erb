@@ -1,24 +1,33 @@
 <h2><%= @movie.title %></h2>
+<%= image_tag @movie.cover(:medium) %>
 <p>
 	<b>Quality:</b> <%= Quality.find(@movie.quality_id).name %><br />
 	<b>Erscheinungsdatum:</b> <%= @movie.release_year %><br />
 	<b>3D:</b> <%= @movie.three_dimensional %><br />
 	<b>Information:</b> <%= @movie.information %><br />
+	<b>Größe:</b> <%= number_to_human_size(@movie.size*1024*1024, precision: 4) %><br />
+	<b>Länge:</b> <%= Time.at(@movie.length).utc.strftime("%H:%M:%S") %><br />
 	<b>Hinzugefügt von (am):</b> <%= @movie.created_by_id.full_name %> (<%= @movie.created_at %>)
 </p>
+
 <h3>Interne Statistiken</h3>
 <p>
-	<b>Gesehen:</b> <%= @movie.seen_movies.count %> mal<br />
+	<b>Gesehen von </b> <%= @movie.seen_movies.count %> Personen<br />
 	<b>Bewertet:</b> <%= @movie.ratings.count %> mal<br />
 	<b>Video Bewertung:</b> <%= @movie.rating_average_of(:rating_general) %> Sterne<br />
 	<b>Qualität Bewertung:</b> <%= @movie.rating_average_of(:rating_quality) %> Sterne<br />
 </p>
 
-<%= link_to "Als gesehen markieren", movie_seen_movie_path(@movie, 1), method: :put %>
+<% if @current_user.has_seen?(@movie) %>
+	<%= link_to "Als ungesehen markieren", movie_seen_movie_path(@movie, 1), method: :put %>
+<% else %>
+	<%= link_to "Als gesehen markieren", movie_seen_movie_path(@movie, 1), method: :put %>
+<% end %>
 
 <h3>Bewertungen</h3>
 <% @movie.ratings.all(order: "created_at desc").each do |rating| %>
 	<p>
+		<b><%= image_tag rating.user.avatar(:thumb) %></b>
 		<b><%= rating.user.full_name %> am <%= rating.created_at %> sagt:<br />
 		<b>General:</b> <%= rating.rating_general %><br />
 		<b>Qualität:</b> <%= rating.rating_quality %><br />

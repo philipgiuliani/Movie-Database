@@ -46,6 +46,6 @@ class MoviesController < ApplicationController
 	private
 
 	def movie_params
-	params.require(:movie).permit(:title, :quality_id, :three_dimensional, :information, :release_year).merge(editing_user: current_user)
+	params.require(:movie).permit(:title, :quality_id, :three_dimensional, :length, :size, :information, :release_year, :cover).merge(editing_user: current_user)
 	end
 end

@@ -1,5 +1,13 @@
 <h2>Profil bearbeiten</h2>
-<%= form_for @user do |f| %>
+<%= form_for @user, html: { multipart: true } do |f| %>
+	<% if @user.errors.any? %>
+	<ul>
+		<% @user.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	
 	<p>
 		<%= f.label :firstname %>
 		<%= f.text_field :firstname %>
@@ -7,6 +15,10 @@
 	<p>
 		<%= f.label :lastname %>
 		<%= f.text_field :lastname %>
+	</p>
+	<p>
+		<%= f.label :avatar %>
+		<%= f.file_field :avatar %>
 	</p>
 	<p>
 		<%= f.label :password %>

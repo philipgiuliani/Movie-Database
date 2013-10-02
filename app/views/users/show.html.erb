@@ -2,6 +2,8 @@
 <b>Vorname:</b> <%= @user.firstname %><br />
 <b>Nachname:</b> <%= @user.lastname %>
 
+<%= image_tag @user.avatar.url(:medium) %>
+
 <h3>Statistiken</h3>
 <b>Hinzugefügte Filme:</b> <%= @user.movies.count %><br />
 <b>Gesehene Filme:</b> <%= @user.seen_movies.count %>

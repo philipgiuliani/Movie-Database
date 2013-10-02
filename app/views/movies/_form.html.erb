@@ -1,4 +1,4 @@
-<%= form_for @movie do |f| %>
+<%= form_for @movie, html: { multipart: true } do |f| %>
 	<% if @movie.errors.any? %>
 	<ul>
 		<% @movie.errors.full_messages.each do |msg| %>
@@ -21,6 +21,18 @@
 	<p>
 		<%= f.label :release_year %>
 		<%= f.select :release_year, (Date.today.year).downto(1940).to_a %>
+	</p>
+	<p>
+		<%= f.label :size %> in MB
+		<%= f.text_field :size %>
+	</p>
+	<p>
+		<%= f.label :cover %>
+		<%= f.file_field :cover %>
+	</p>
+	<p>
+		<%= f.label :length %> in min
+		<%= f.text_field :length %>
 	</p>
 	<p>
 		<%= f.label :information %>
