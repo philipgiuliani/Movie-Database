@@ -8,24 +8,52 @@
 </head>
 <body>
 
+	<div id="navigation">
+		<div class="inner">
+			<div class="brand">
+				<%= link_to "meine<span>filme.net</span>".html_safe, home_path %>
+			</div>
+			<div class="menu">
+				<%= nav_link_to "FILME", movies_path, {}, { ignore_params: true } %>
+				<%= nav_link_to "BENUTZER", users_path, {}, { ignore_params: true } %>
+			</div>
+			<div class="user">
+				<% if user_signed_in? %>
+					<%= image_tag @current_user.avatar(:thumb) %>
+					<div class="settings">
+						Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
+						<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %> - <%= link_to "Abmelden", logout_path, method: :delete %>
+					</div>
+				<% else %>
+					Sie sind nicht eingeloggt
+				<% end %>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
 
-<header>
-	<h1>Film Datenbank</h1>
-	<nav>
-		<%= link_to "Startseite", home_path %>
-		<%= link_to "Filme", movies_path %>
-		<%= link_to "Benutzer", users_path %>
-	</nav>
-</header>
+	<div id="recommended_movies">
+		<div class="inner">
+			<a href="#" class="big">
+				<img src="" alt="" />
+				<div class="caption">Hangover 3 <span>hinzugef&uuml;gt am 27.10.2013 - 18:34</span></div>
+			</a>
+			<a href="#" class="small">
+				<img src="" alt="" />
+				<div class="caption">Hangover 3 <span>27.10.2013</span></div>
+			</a>
+			<a href="#" class="small">
+				<img src="" alt="" />
+				<div class="caption">Hangover 3 <span>27.10.2013</span></div>
+			</a>
 
-<% if flash[:notice] %>
-	<p style="background:green"><%= flash[:notice] %></p>
-<% end %>
-<% if flash[:alert] %>
-	<p style="background:red"><%= flash[:alert] %></p>
-<% end %>
-
-<%= yield %>
+		</div>
+	</div>
+	<div id="content">
+		<% if flash[:notice] %><div class="message notice"><%= flash[:notice] %></div><% end %>
+		<% if flash[:alert] %><div class="message alert"><%= flash[:alert] %></div><% end %>
+		<%= yield %>
+	</div>
 
 </body>
 </html>
