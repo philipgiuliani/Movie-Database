@@ -1,0 +1,44 @@
+de:
+  activerecord:
+    models:
+      movie: "Film"
+      quality: "Qualität"
+      rating: "Bewertung"
+      user: "Benutzer"
+    attributes:
+      movie:
+        title: "Titel"
+        subtitle: "Untertitel"
+        quality_id: "Qualität"
+        three_dimensional: "3D"
+        release_year: "Erscheinungsjahr"
+        size: "Größe"
+        cover: "Cover"
+        length: "Länge"
+        show_recommended: "Empfohlen"
+        information: "Information"
+      rating:
+        comment: "Kommentar"
+        user: "Benutzer"
+        rating_general: "Film"
+        rating_quality: "Qualität"
+      user:
+        username: "Benutzername"
+        password_digest: "Passwort"
+        password: "Passwort"
+        password_confirmation: "Passwortbestätigung"
+    errors:
+      messages:
+        already_rated: "hat bereits bewertet"
+  links:
+    new_movie: "Film hinzufügen"
+  messages:
+    new_movie: "Film wurde erfolgreich angelegt."
+    edit_movie: "Film wurde erfolgreich geändert."
+    delete_movie: "Film wurde erfolgreich gelöscht."
+    not_logged_in: "Bitte melden Sie sich zuerst an."
+    new_user: "Ihr Benutzerkonto wurde erfolgreich angelegt!"
+    login: "Sie haben sich erfolgreich angemeldet"
+    logout: "Sie haben sich erfolgreich abgemeldet"
+  text:
+    ratings_of_other_users: "Bewertungen"
