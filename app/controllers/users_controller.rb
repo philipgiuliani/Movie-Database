@@ -15,7 +15,9 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
-		puts @user.inspect
+		if current_user.id != @user.id
+			redirect_to movies_path, alert: "Sie dürfen dieses Profil nicht bearbeiten"
+		end
 	end
 
 	def update

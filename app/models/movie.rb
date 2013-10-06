@@ -2,7 +2,7 @@ class Movie < ActiveRecord::Base
 	attr_accessor :editing_user
 	attr_accessor :cover
 
-	has_attached_file :cover, styles: { medium: "300x443>", thumb: "100x148>" },
+	has_attached_file :cover, styles: { big: "540x994>", medium: "300x443>", small: "100x148>" },
 										url: "/assets/:attachment/:id/:style.:extension",
 										path: ":rails_root/public/assets/:attachment/:id/:style.:extension"
 
@@ -22,6 +22,14 @@ class Movie < ActiveRecord::Base
 	validates :size, presence: true, numericality: { only_integer: true }
 	validates :length, presence: true, numericality: { only_integer: true }
 	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..2.megabytes }
+
+	def self.search(search)
+		if search
+			where("title LIKE ?", "%#{search}%")
+		else
+			scoped
+		end
+	end
 
 	def rating_average_of(average_key)
 		self.ratings.count > 0 ? (self.ratings.sum(average_key) / self.ratings.count) : 0

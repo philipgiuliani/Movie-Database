@@ -19,7 +19,7 @@
 			</div>
 			<div class="user">
 				<% if user_signed_in? %>
-					<%= image_tag @current_user.avatar(:thumb) %>
+					<%= image_tag @current_user.avatar(:small) %>
 					<div class="settings">
 						Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
 						<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %> - <%= link_to "Abmelden", logout_path, method: :delete %>
@@ -34,19 +34,23 @@
 
 	<div id="recommended_movies">
 		<div class="inner">
-			<a href="#" class="big">
-				<img src="" alt="" />
-				<div class="caption">Hangover 3 <span>hinzugef&uuml;gt am 27.10.2013 - 18:34</span></div>
-			</a>
-			<a href="#" class="small">
-				<img src="" alt="" />
-				<div class="caption">Hangover 3 <span>27.10.2013</span></div>
-			</a>
-			<a href="#" class="small">
-				<img src="" alt="" />
-				<div class="caption">Hangover 3 <span>27.10.2013</span></div>
-			</a>
-
+			<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
+				<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
+					<% if index == 0 %>
+						<%= image_tag movie.cover(:big) %>
+						<div class="caption">
+							<%= movie.title %>
+							<span>hinzugef&uuml;gt am <%= movie.created_at.utc.strftime("%d.%m.%Y - %H:%M") %></span>
+						</div>
+					<% else %>
+						<%= image_tag movie.cover(:medium) %>
+						<div class="caption">
+							<%= movie.title %>
+							<span><%= movie.created_at.utc.strftime("%d.%m.%Y") %></span>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
 		</div>
 	</div>
 	<div id="content">

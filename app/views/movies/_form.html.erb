@@ -11,6 +11,10 @@
 		<%= f.text_field :title %>
 	</p>
 	<p>
+		<%= f.label :subtitle %>
+		<%= f.text_field :subtitle %>
+	</p>
+	<p>
 		<%= f.label :quality_id %>
 		<%= f.select :quality_id, Quality.all.map { |quality| [quality.name, quality.id] } %>
 	</p>
@@ -33,6 +37,10 @@
 	<p>
 		<%= f.label :length %> in min
 		<%= f.text_field :length %>
+	</p>
+	<p>
+		<%= f.label :show_recommended %>
+		<%= f.check_box :show_recommended %>
 	</p>
 	<p>
 		<%= f.label :information %>

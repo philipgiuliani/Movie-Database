@@ -32,9 +32,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
+# Custom added gems
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip', '~> 3.0'
+gem 'will_paginate'
 
 # Use unicorn as the app server
 # gem 'unicorn'

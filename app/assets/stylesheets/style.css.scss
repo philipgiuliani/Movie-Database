@@ -4,6 +4,7 @@ $color_main: rgb(238,209,105);
 body {
 	padding: 0;
 	margin: 0;
+	color: #323232;
 	font: {
 		family: "proxima-nova-1";
 		size: 18px;
@@ -20,6 +21,20 @@ body {
 	}
 	img {
 		border: none;
+	}
+
+	h2 {
+		font-size: 32px;
+		font-weight: 300;
+		color: #333333;
+		margin: 0 0 15px 0;
+	}
+
+	h3 {
+		font-size: 24px;
+		font-weight: 300;
+		color: #333333;
+		margin: 15px 0;
 	}
 }
 
@@ -121,11 +136,11 @@ body {
 		box-shadow: 0 0 15px rgba(0,0,0,.3);
 		position: relative;
 		background: rgba(255,255,255,.05);
+		overflow: hidden;
 
 		img {
 			position: relative;
 			z-index: 1;
-			display: none;
 		}
 
 		.caption {
@@ -153,7 +168,7 @@ body {
 
 			img {
 				width: 260px;
-				height: 145px;
+				top: -50px;
 			}
 
 			&:last-child {
@@ -178,7 +193,7 @@ body {
 
 			img {
 				width: 540px;
-				height: 305px;
+				top: -150px;
 			}
 
 			.caption {
@@ -192,16 +207,206 @@ body {
 
 #content {
 	width: $page_width;
-	margin: 15px auto;
+	margin: 40px auto;
 
 	.message {
-		padding: 20px;
+		padding: 15px;
+		margin-bottom: 20px;
+		color: #ffffff;
 
 		&.notice {
 			background: green;
 		}
 		&.alert {
 			background: red;
+		}
+	}
+}
+
+// movies
+.movie_description {
+	margin-bottom: 30px;
+	position: relative;
+
+	img  {
+		float: left;
+		width: 195px;
+		height: 300px;
+	}
+
+	.button {
+		position: absolute;
+		padding: 10px 20px;
+		top: 0;
+		right: 0;
+		font-size: 14px;
+		font-weight: 500;
+		text-decoration: none;
+
+		&.visited {
+			background: #a4cc4d;
+			background: -webkit-linear-gradient(top, #a4cc4d 0%, #87ad33 100%);
+			background: linear-gradient(to bottom, #a4cc4d 0%, #87ad33 100%);
+			border: 1px solid #82a632;
+			color: #fff;
+			border-radius: 3px;
+			box-shadow: inset 0 2px 1px rgba(0,0,0,0.1);
+			transition: top 0.5s ease-out;
+			-moz-transition: top 0.5s ease-out;
+			-webkit-transition: top 0.5s ease-out;
+			-o-transition: top 0.5s ease-out;
+		}
+
+		&.not_visited {
+			border-bottom: 1px solid #b7b7b7;
+			border-left: 1px solid #e4e4e4;
+			border-right: 1px solid #e4e4e4;
+			border-top: 1px solid #ffffff;
+			border-radius: 3px;
+			box-shadow: 0px 2px 2px rgba(227,227,227,0.8);
+			background: #f9f9f9;
+			background: -webkit-linear-gradient(top, #f9f9f9 0%, #eee 100%);
+			background: -o-linear-gradient(top, #f9f9f9 0%, #eee 100%);
+			background: linear-gradient(to bottom, #f9f9f9 0%, #eee 100%);
+			color: #333333;
+		}
+	}
+
+	.information {
+		margin-left: 15px;
+		float: left;
+		color: rgb(50,50,50);
+
+		span {
+			display: inline-block;
+			width: 200px;
+			line-height: 40px;
+		}
+	}
+}
+
+.movie_ratings {
+	.rating {
+		border-bottom: 1px solid #D6D6D6;
+		padding: 10px 0;
+
+		img.avatar {
+			float: left;
+			margin-right: 15px;
+			width: 60px;
+			height: 60px;
+			border-radius: 30px;
+		}
+
+		.text {
+			float:left;
+			width: 545px;
+			margin-right: 15px;
+
+			&:first-line {
+				font-weight: 500;
+				line-height: 2em;
+			}
+
+			a, a:visited {
+				text-decoration: none;
+				color: #333333;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		.ratings {
+			width: 180px;
+			float: right;
+			line-height: 28px;
+
+			span {
+				display: inline-block;
+				width: 85px;
+			}
+
+			img {
+				margin-right: 2px;
+			}
+		}
+	}
+}
+
+// users
+.user_description {
+	margin-bottom: 30px;
+
+	img  {
+		float: left;
+		width: 160px;
+		height: 160px;
+	}
+
+	.information {
+		margin-left: 15px;
+		float: left;
+		color: rgb(50,50,50);
+
+		h2 {
+			font-size: 32px;
+			font-weight: 300;
+			color: #333;
+			margin: 0 0 15px 0;
+		}
+
+		span {
+			display: inline-block;
+			width: 200px;
+			line-height: 36px;
+		}
+	}
+}
+
+.user_ratings {
+	.rating {
+		border-bottom: 1px solid #D6D6D6;
+		padding: 10px 0;
+
+		img.cover {
+			float: left;
+			margin-right: 15px;
+			height: 100px;
+			width: 67px;
+		}
+		
+		.text {
+			float:left;
+			width: 538px;
+			margin-right: 15px;
+
+			&:first-line {
+				font-weight: 500;
+				line-height: 2em;
+			}
+			a, a:visited {
+				text-decoration: none;
+				color: #333333;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		.ratings {
+			width: 180px;
+			float: right;
+			line-height: 28px;
+
+			span {
+				display: inline-block;
+				width: 85px;
+			}
+
+			img {
+				margin-right: 2px;
+			}
 		}
 	}
 }

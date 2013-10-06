@@ -8,7 +8,6 @@ Moviedatabase::Application.routes.draw do
 		resources :ratings, only: [:create, :edit, :update, :destroy]
 		resources :seen_movies, on: :member
 	end
-
 	get "login", to: "sessions#new", as: "login"
 	post "sessions" => "sessions#create", as: "sessions"
 	delete "logout" => "sessions#destroy", as: "logout"

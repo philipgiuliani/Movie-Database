@@ -15,6 +15,9 @@ class RatingsController < ApplicationController
 	def edit
 		@movie = Movie.find(params[:movie_id])
 		@rating = @movie.ratings.find(params[:id])
+		if @rating.user != current_user
+			redirect_to movie_path(@movie), alert: "Sie dürfen diese Bewertung nicht bearbeiten"
+		end
 	end
 
 	def update

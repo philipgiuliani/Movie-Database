@@ -1,4 +1,11 @@
 <h2>Filme</h2>
+<%= form_tag movies_path, method: "get" do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag :search, name: nil %>
+	</p>
+<% end %>
+
 <table>
 	<thead>
 		<tr>
@@ -34,5 +41,7 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= will_paginate @movies %>
 
 <%= link_to 'Film hinzufügen', new_movie_path %>

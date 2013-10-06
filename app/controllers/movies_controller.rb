@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
 	before_filter :require_login
 
 	def index
-		@movies = Movie.all(order: "title asc", include: [:created_by_id, :updated_by_id])
+		@movies = Movie.search(params[:search]).order("title asc").includes([:created_by_id, :updated_by_id]).paginate(per_page: 20, page: params[:page])
 	end
 
 	def show
@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
 	def create
 		@movie = Movie.new(movie_params)
 		if @movie.save
-			redirect_to movies_path, notice: "Film hinzugefügt"
+			redirect_to movies_path, notice: t("messages.new_movie")
 		else
 			render "new"
 		end
@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
 	def update
 		@movie = Movie.find(params[:id])
 		if @movie.update_attributes(movie_params)
-			redirect_to movies_path, notice: "Film bearbeitet"
+			redirect_to movies_path, notice: t("messages.edit_movie")
 		else
 			render "edit"
 		end
@@ -40,12 +40,12 @@ class MoviesController < ApplicationController
 	def destroy
 		@movie = Movie.find(params[:id])
 		@movie.destroy
-		redirect_to movies_path, notice: "Film gelöscht"
+		redirect_to movies_path, notice: t("messages.delete_movie")
 	end
 
 	private
 
 	def movie_params
-	params.require(:movie).permit(:title, :quality_id, :three_dimensional, :length, :size, :information, :release_year, :cover).merge(editing_user: current_user)
+	params.require(:movie).permit(:title, :subtitle, :quality_id, :three_dimensional, :length, :size, :information, :show_recommended, :release_year, :cover).merge(editing_user: current_user)
 	end
 end

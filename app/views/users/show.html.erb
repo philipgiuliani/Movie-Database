@@ -1,23 +1,38 @@
-<h2>Profil von <%= @user.full_name %></h2>
-<b>Vorname:</b> <%= @user.firstname %><br />
-<b>Nachname:</b> <%= @user.lastname %>
+<div class="user_description">
+	<%= image_tag @user.avatar.url(:medium) %>
+	<span class="information">
+		<h2><%= @user.full_name %></h2>
+		<span>Hinzugefügte Filme:</span> <%= @user.movies.count %><br />
+		<span>Gesehene Filme:</span> <%= @user.seen_movies.count %><br />
+		<span>Bewertete Filme:</span> <%= @user.ratings.count %>
+	</span>
+	<div class="clear"></div>
+</div>
 
-<%= image_tag @user.avatar.url(:medium) %>
+<div class="user_ratings">
+	<h2>Letzte 5 Bewertungen</h2>
 
-<h3>Statistiken</h3>
-<b>Hinzugefügte Filme:</b> <%= @user.movies.count %><br />
-<b>Gesehene Filme:</b> <%= @user.seen_movies.count %>
+	<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
+	<div class="rating">
+		<%= image_tag rating.movie.cover(:small), class: "cover" %>
 
-<h3>Die Letzten 5 Bewertungen</h3>
-<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
-	<p>
-		<b>Film:</b> <%= rating.movie.title %><br />
-		<b>General:</b> <%= rating.rating_general %><br />
-		<b>Qualität:</b> <%= rating.rating_quality %><br />
-		<b>Kommentar:</b> <%= rating.comment %>
-		<hr />
-	</p>
-<% end %>
+		<div class="text">
+			<%= rating.user.full_name %> sagt zu <%= link_to rating.movie.title, movie_path(rating.movie) %>,<br />
+			<%= rating.comment %><br />
+			<% if rating.user == @current_user %>
+				<%= link_to "Edit", edit_movie_rating_path(rating.movie, rating) %>
+				<%= link_to "Delete", movie_rating_path(rating.movie, rating), method: :delete %>
+			<% end %>
+		</div>
+		<div class="ratings">
+			<span>Gesamt:</span> <%= stars_images(rating.rating_average) %><br />
+			<span>Film:</span> <%= stars_images(rating.rating_general) %><br />
+			<span>Qualität:</span> <%= stars_images(rating.rating_quality) %><br />
+		</div>
+		<div class="clear"></div>
+	</div>
+	<% end %>
+</div>
 
 <h3>Die Letzten gesehenen Filme</h3>
 <ul>
