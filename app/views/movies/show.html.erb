@@ -3,10 +3,10 @@
 	<span class="information">
 		<h2><%= @movie.title %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
 		<span>Erscheinungsdatum:</span> <%= @movie.release_year %><br />
-		<span>Dauer:</span> <%= Time.at(@movie.length).to_formatted_s(:time) %><br />
+		<span>Dauer:</span> <%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %><br />
 		<span>Größe:</span> <%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte<br />
 		<span>Qualität:</span> <%= Quality.find(@movie.quality_id).name %><br />
-		<span>Gesehen von:</span> <%= @movie.seen_movies.count %> Personen<br />
+		<span>Gesehen von:</span> <%= t("text.movie.persons", count: @movie.seen_movies.count) %><br />
 		<span>Kategorien:</span> Kommt noch
 	</span>
 	<div class="clear"></div>
@@ -41,28 +41,29 @@
 	</div>
 	<% end %>
 
-	<h3>Bewertung schreiben</h3>
-	<%= form_for [@movie, @rating] do |f| %>
-		<% if @rating.errors.any? %>
-		<ul>
-			<% @rating.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
+	<% unless @current_user.has_rated?(@movie) %>
+		<h3>Bewertung schreiben</h3>
+		<%= form_for [@movie, @rating] do |f| %>
+			<% if @rating.errors.any? %>
+			<ul>
+				<% @rating.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
 			<% end %>
-		</ul>
+			<p>
+				<%= f.label :rating_general %>
+				<%= f.select :rating_general, 10.downto(0).to_a %>
+			</p>
+			<p>
+				<%= f.label :rating_quality %>
+				<%= f.select :rating_quality, 10.downto(0).to_a %>
+			</p>
+			<p>
+				<%= f.label :comment %>
+				<%= f.text_area :comment %>
+			</p>
+			<p><%= f.submit %></p>
 		<% end %>
-
-		<p>
-			<%= f.label :rating_general %>
-			<%= f.select :rating_general, 10.downto(0).to_a %>
-		</p>
-		<p>
-			<%= f.label :rating_quality %>
-			<%= f.select :rating_quality, 10.downto(0).to_a %>
-		</p>
-		<p>
-			<%= f.label :comment %>
-			<%= f.text_area :comment %>
-		</p>
-		<p><%= f.submit %></p>
 	<% end %>
 </div>

@@ -6,42 +6,22 @@
 	</p>
 <% end %>
 
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Titel</th>
-			<th>Erscheinungsdatum</th>
-			<th>Qualität</th>
-			<th>3D</th>
-			<th>Informationen</th>
-			<th>Hinzugefügt von</th>
-			<th>Aktualisiert von</th>
-			<th>Gesehen</th>
-			<th>Aktionen</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @movies.each do |movie| %>
-		<tr>
-			<td><%= movie.id %></td>
-			<td><%= link_to movie.title, movie_path(movie) %></td>
-			<td><%= movie.release_year %></td>
-			<td><%= Quality.find(movie.quality_id).name %></td>
-			<td><%= movie.three_dimensional %></td>
-			<td><%= movie.information %></td>
-			<td><%= movie.created_by_id.full_name %></td>
-			<td><%= movie.updated_by_id.full_name %></td>
-			<td><%= @current_user.has_seen?(movie) %></td>
-			<td>
-				<%= link_to 'Bearbeiten', edit_movie_path(movie) %>
-				<%= link_to 'Löschen', movie_path(movie), method: :delete %>
-			</td>
-		</tr>
+<div class="movies_list">
+	<% @movies.each do |movie| %>
+		<%= link_to movie_path(movie), class: "movie_item" do %>
+			<%= image_tag movie.cover(:small), class: "cover" %>
+			<div class="information">
+				<h4><%= movie.title %> (<%= movie.release_year %>)</h4>
+				<span>Qualität:</span><%= Quality.find(movie.quality_id).name %><br />
+				<span>Dauer:</span><%= Time.at(movie.length).to_formatted_s(:time) %><br />
+				<span>
+			</div>
+			<%= image_tag("accepted.png", class: "visited") if @current_user.has_seen?(movie) %>
+			<div class="clear"></div>
 		<% end %>
-	</tbody>
-</table>
+	<% end %>
+	<div class="clear"></div>
 
-<%= will_paginate @movies %>
-
-<%= link_to 'Film hinzufügen', new_movie_path %>
+	<%= will_paginate @movies %>
+	<%= link_to 'Film hinzufügen', new_movie_path %>
+</div>

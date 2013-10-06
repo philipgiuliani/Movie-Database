@@ -2,7 +2,7 @@ class Movie < ActiveRecord::Base
 	attr_accessor :editing_user
 	attr_accessor :cover
 
-	has_attached_file :cover, styles: { big: "540x994>", medium: "300x443>", small: "100x148>" },
+	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" },
 										url: "/assets/:attachment/:id/:style.:extension",
 										path: ":rails_root/public/assets/:attachment/:id/:style.:extension"
 
@@ -11,6 +11,7 @@ class Movie < ActiveRecord::Base
 	belongs_to :updated_by_id, :class_name => 'User', :foreign_key => 'updated_by_id'
 	has_many :ratings, dependent: :destroy
 	has_many :seen_movies, dependent: :destroy
+	has_many :genres
 
 	before_create :before_create
 	before_update :before_update

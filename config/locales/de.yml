@@ -24,6 +24,8 @@ de:
         rating_quality: "Qualität"
       user:
         username: "Benutzername"
+        firstname: "Vorname"
+        lastname: "Nachname"
         password_digest: "Passwort"
         password: "Passwort"
         password_confirmation: "Passwortbestätigung"
@@ -41,4 +43,14 @@ de:
     login: "Sie haben sich erfolgreich angemeldet"
     logout: "Sie haben sich erfolgreich abgemeldet"
   text:
-    ratings_of_other_users: "Bewertungen"
+    ratings_of_other_users: "Bewertungen von anderen Benutzern"
+    movie:
+      hours:
+        one: "1 Stunde"
+        other: "%{count} Stunden"
+      minutes:
+        one: "1 minute"
+        other: "%{count} minuten"
+      persons:
+        one: "1 Person"
+        other: "%{count} Personen"

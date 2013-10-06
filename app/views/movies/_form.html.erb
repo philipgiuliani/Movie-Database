@@ -27,7 +27,7 @@
 		<%= f.select :release_year, (Date.today.year).downto(1940).to_a %>
 	</p>
 	<p>
-		<%= f.label :size %> in MB
+		<%= f.label :size %>
 		<%= f.text_field :size %>
 	</p>
 	<p>
@@ -35,7 +35,7 @@
 		<%= f.file_field :cover %>
 	</p>
 	<p>
-		<%= f.label :length %> in min
+		<%= f.label :length %>
 		<%= f.text_field :length %>
 	</p>
 	<p>

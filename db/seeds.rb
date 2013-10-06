@@ -14,6 +14,17 @@ Quality.create([
 	{name: "Ultra-HD (2160p)", resolution_x: 3840, resolution_y: 2160}
 ]);
 
-Movie.create([
-	
+Genre.create([
+	{name: "Abenteuer"},
+	{name: "Action"},
+	{name: "Animation"},
+	{name: "Dokumentarfilm"},
+	{name: "Drama"},
+	{name: "Familie"},
+	{name: "Eastern"},
+	{name: "Fantasy"},
+	{name: "Geschichte"},
+	{name: "Horror"},
+	{name: "Komödie"},
+	{name: "Krimi"}
 ]);

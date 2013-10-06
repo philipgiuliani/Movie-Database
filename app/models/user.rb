@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
 	def has_seen?(movie)
 		seen_movies.find_by_movie_id(movie).present?
 	end
+
+	def has_rated?(movie)
+		ratings.find_by_movie_id(movie).present?
+	end
 end

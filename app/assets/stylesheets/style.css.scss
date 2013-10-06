@@ -38,6 +38,17 @@ body {
 	}
 }
 
+form {
+	p {
+		margin: 20px 0;
+	}
+
+	label {
+		display: inline-block;
+		width: 20%;
+	}
+}
+
 #navigation {
 	background: rgb(28,28,28);
 	width: 100%;
@@ -87,7 +98,7 @@ body {
 			width: 50px;
 			height: 50px;
 			margin: 10px 10px 10px 0;
-			border-radius: 25px;
+			border-radius: 5px;
 			float: left;
 		}
 
@@ -168,7 +179,7 @@ body {
 
 			img {
 				width: 260px;
-				top: -50px;
+				top: -100px;
 			}
 
 			&:last-child {
@@ -193,7 +204,7 @@ body {
 
 			img {
 				width: 540px;
-				top: -150px;
+				top: -250px;
 			}
 
 			.caption {
@@ -230,7 +241,7 @@ body {
 
 	img  {
 		float: left;
-		width: 195px;
+		width: 200px;
 		height: 300px;
 	}
 
@@ -293,9 +304,10 @@ body {
 		img.avatar {
 			float: left;
 			margin-right: 15px;
+			margin-top: 10px;
 			width: 60px;
 			height: 60px;
-			border-radius: 30px;
+			border-radius: 5px;
 		}
 
 		.text {
@@ -406,6 +418,61 @@ body {
 
 			img {
 				margin-right: 2px;
+			}
+		}
+	}
+}
+
+.movies_list {
+	.movie_item {
+		display: block;
+		width: 400px;
+		float: left;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		text-decoration: none;
+		position: relative;
+		box-shadow: 0 1px 5px rgba(0,0,0,.2);
+		border-radius: 5px;
+
+		&:hover {
+			background: rgba(0,0,0,.04);
+		}
+
+		&:nth-child(2n) {
+			margin-right: 0;
+		}
+
+		img.cover {
+			float: left;
+			margin-right: 10px;
+			border-radius: 5px 0 0 5px;
+		}
+
+		img.visited {
+			position: absolute;
+			right: 10px;
+			top: 8px;
+		}
+
+		.information {
+			font-size: 18px;
+			color: #333;
+			line-height: 28px;
+			float: left;
+
+			span {
+				display: inline-block;
+				width: 80px;
+			}
+
+			h4 {
+				color: #333333;
+				font: {
+					weight: 300;
+					size: 20px;
+				}
+				margin: 5px 0 10px 0;
 			}
 		}
 	}
