@@ -1,7 +1,7 @@
 <div class="movie_description">
 	<%= image_tag @movie.cover(:medium) %>
 	<span class="information">
-		<h2><%= @movie.title %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
+		<h2><%= truncate(@movie.title, length: 30, truncate_string: "...") %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
 		<span>Erscheinungsdatum:</span> <%= @movie.release_year %><br />
 		<span>Dauer:</span> <%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %><br />
 		<span>Größe:</span> <%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte<br />
