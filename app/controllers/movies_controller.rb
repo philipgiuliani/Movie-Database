@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
 	def update
 		@movie = Movie.find(params[:id])
 		if @movie.update_attributes(movie_params)
-			redirect_to movies_path, notice: t("messages.edit_movie")
+			redirect_to movie_path(@movie), notice: t("messages.edit_movie")
 		else
 			render "edit"
 		end
@@ -46,6 +46,6 @@ class MoviesController < ApplicationController
 	private
 
 	def movie_params
-	params.require(:movie).permit(:title, :subtitle, :quality_id, :three_dimensional, :length, :size, :information, :show_recommended, :release_year, :cover).merge(editing_user: current_user)
+		params.require(:movie).permit(:title, :subtitle, :quality_id, :three_dimensional, :length, :size, :information, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
 	end
 end

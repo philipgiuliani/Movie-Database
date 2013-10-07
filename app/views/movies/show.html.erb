@@ -7,7 +7,7 @@
 		<span>Größe:</span> <%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte<br />
 		<span>Qualität:</span> <%= Quality.find(@movie.quality_id).name %><br />
 		<span>Gesehen von:</span> <%= t("text.movie.persons", count: @movie.seen_movies.count) %><br />
-		<span>Kategorien:</span> Kommt noch
+		<span>Kategorien:</span> <%= @movie.genres.map { |g| g.name }.join(", ") %>
 	</span>
 	<div class="clear"></div>
 
@@ -17,6 +17,9 @@
 		<%= link_to "Nicht gesehen", movie_seen_movie_path(@movie, 1), class: "button not_visited", method: :put %>
 	<% end %>
 </div>
+
+<%= link_to "Bearbeiten", edit_movie_path(@movie) %>
+<%= link_to "Löschen", movie_path(@movie), method: :delete %>
 
 <div class="movie_ratings">
 	<h2>Bewertung <small>von anderen Benutzern</small></h2>

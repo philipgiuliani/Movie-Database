@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 	has_secure_password
 	has_attached_file :avatar, styles: { medium: "300x300>", small: "100x100>" },
 										url: "/assets/:attachment/:id/:style.:extension",
-										path: ":rails_root/public/assets/:attachment/:id/:style.:extension"
+										path: ":rails_root/public/assets/:attachment/:id/:style.:extension",
+										default_url: "/assets/:attachment/missing/:style.png"
 
 	validates :username, uniqueness: true, presence: true
 	validates :firstname, presence: true

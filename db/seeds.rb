@@ -26,5 +26,13 @@ Genre.create([
 	{name: "Geschichte"},
 	{name: "Horror"},
 	{name: "Komödie"},
-	{name: "Krimi"}
+	{name: "Krimi"},
+	{name: "Thriller"},
+	{name: "Science Fiction"},
+	{name: "Lovestory"},
+	{name: "Mystery"},
+	{name: "Familie"},
+	{name: "Sport"},
+	{name: "Western"},
+	{name: "Holiday"}
 ]);

@@ -4,14 +4,17 @@ class Movie < ActiveRecord::Base
 
 	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" },
 										url: "/assets/:attachment/:id/:style.:extension",
-										path: ":rails_root/public/assets/:attachment/:id/:style.:extension"
+										path: ":rails_root/public/assets/:attachment/:id/:style.:extension",
+										default_url: "/assets/:attachment/missing/:style.png"
 
 	belongs_to :quality
-	belongs_to :created_by_id, :class_name => 'User', :foreign_key => 'created_by_id'
-	belongs_to :updated_by_id, :class_name => 'User', :foreign_key => 'updated_by_id'
+	belongs_to :created_by_id, class_name: 'User', foreign_key: 'created_by_id'
+	belongs_to :updated_by_id, class_name: 'User', foreign_key: 'updated_by_id'
 	has_many :ratings, dependent: :destroy
 	has_many :seen_movies, dependent: :destroy
-	has_many :genres
+
+	has_many :movie_genres, dependent: :destroy
+	has_many :genres, through: :movie_genres
 
 	before_create :before_create
 	before_update :before_update
@@ -22,7 +25,7 @@ class Movie < ActiveRecord::Base
 	validates :release_year, presence: true, :length => { :is => 4 }, numericality: { only_integer: true }
 	validates :size, presence: true, numericality: { only_integer: true }
 	validates :length, presence: true, numericality: { only_integer: true }
-	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..2.megabytes }
+	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..5.megabytes }
 
 	def self.search(search)
 		if search

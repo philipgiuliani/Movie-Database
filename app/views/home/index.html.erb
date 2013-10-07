@@ -20,6 +20,3 @@
     <li><%= "#{seen_movie.user.full_name} hat #{seen_movie.movie.title} vor #{time_ago_in_words(seen_movie.created_at)} als gesehen markiert" %></li>
   <% end %>
 </ul>
-
-<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %>
-<%= link_to "Abmelden", logout_path, method: :delete %>
