@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_filter :require_login, only: [:index, :show, :edit, :update]
 
   def index
-  	@users = User.all(order: "firstname, lastname asc")
+  	@users = User.all(order: "firstname, lastname asc", conditions: {active: true})
+  	@users_not_active = User.all(order: "firstname, lastname asc", conditions: {active: false}) if current_user.is_admin?
   end
 
   def show
@@ -27,6 +28,26 @@ class UsersController < ApplicationController
   	else
   	  render "edit"
   	end
+	end
+
+	def destroy
+		user = User.find(params[:id])
+		if current_user.is_admin?
+			user.destroy
+			redirect_to users_path, notice: "Der Benutzer wurde erfolgreich gelöscht"
+		else
+			redirect_to users_path, notice: "Keine Berechtigungen"
+		end
+	end
+
+	def activate
+		user = User.find(params[:id])
+		if current_user.is_admin?
+			user.update_attributes(active: true)
+			redirect_to users_path, notice: "Der Benutzer wurde erfolgreich aktiviert"
+		else
+			redirect_to users_path, notice: "Keine Berechtigungen"
+		end
 	end
 
 	def create

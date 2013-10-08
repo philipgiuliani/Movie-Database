@@ -21,3 +21,30 @@
 		<% end %>
 	</tbody>
 </table>
+<br /><br />
+<% if @current_user.is_admin? %>
+	<h2>Nicht aktivierte Benutzer</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Vorname</th>
+				<th>Nachname</th>
+				<th>Aktionen</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @users_not_active.each do |user| %>
+			<tr>
+				<td><%= user.id %></td>
+				<td><%= user.firstname %></td>
+				<td><%= user.lastname %></td>
+				<td>
+					<%= link_to "Aktivieren", user_path(user), method: :activate %>
+					<%= link_to "Löschen", user_path(user), method: :delete %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

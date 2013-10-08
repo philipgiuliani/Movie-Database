@@ -4,6 +4,7 @@ Moviedatabase::Application.routes.draw do
 	get "home", to:  "home#index"
 
 	resources :users
+	post 'users/:id' => 'users#activate', :as => :activate
 	resources :movies do
 		resources :ratings, only: [:create, :edit, :update, :destroy]
 		resources :seen_movies, on: :member

@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
 		"#{self.firstname} #{self.lastname}"
 	end
 
+	def is_admin?
+		admin
+	end
+	
 	def has_seen?(movie)
 		seen_movies.find_by_movie_id(movie).present?
 	end
