@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_login, only: [:index, :show, :edit, :update]
+  before_filter :require_admin, only: [:activate]
 
   def index
   	@users = User.all(order: "firstname, lastname asc", conditions: {active: true})
@@ -11,7 +12,11 @@ class UsersController < ApplicationController
   end
 
 	def new
-		@user = User.new
+		if current_user
+			redirect_to movies_path, alert: "Sie sind bereits eingeloggt"
+		else
+			@user = User.new
+		end
 	end
 
 	def edit
@@ -42,18 +47,15 @@ class UsersController < ApplicationController
 
 	def activate
 		user = User.find(params[:id])
-		if current_user.is_admin?
-			user.update_attributes(active: true)
-			redirect_to users_path, notice: "Der Benutzer wurde erfolgreich aktiviert"
-		else
-			redirect_to users_path, notice: "Keine Berechtigungen"
-		end
+		user.update_attributes(active: true)
+		
+		redirect_to users_path, notice: "Der Benutzer wurde erfolgreich aktiviert"
 	end
 
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			redirect_to login_path, notice: "Erfolgreich registriert"
+			redirect_to login_path, notice: "Sie haben sich erfolgreich registriert. Ihr Konto muss erst von einem Administrator aktiviert werden."
 		else
 			render "new"
 		end

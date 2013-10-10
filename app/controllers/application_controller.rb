@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  helper_method :user_signed_in?
 
   private
 
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :user_signed_in?
+  def require_admin
+    unless user_signed_in? && current_user.is_admin?
+      redirect_to users_path, alert: "Keine Berechtigung"
+    end
+  end
 end

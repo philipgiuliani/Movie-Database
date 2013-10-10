@@ -54,3 +54,6 @@ de:
       persons:
         one: "1 Person"
         other: "%{count} Personen"
+  will_paginate:
+    previous_label: "Zurück"
+    next_label: "Vorwärts"

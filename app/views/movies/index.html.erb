@@ -1,10 +1,11 @@
-<h2>Filme</h2>
-<%= form_tag movies_path, method: "get" do %>
-	<p>
+<div class="movies_header">
+	<h2>Filme</h2>
+	<%= form_tag movies_path, method: "get" do %>
 		<%= text_field_tag :search, params[:search] %>
-		<%= submit_tag :search, name: nil %>
-	</p>
-<% end %>
+		<%= submit_tag "Suchen", name: nil %>
+	<% end %>
+	<div class="clear"></div>
+</div>
 
 <div class="movies_list">
 	<% @movies.each do |movie| %>
@@ -13,8 +14,7 @@
 			<div class="information">
 				<h4><%= truncate(movie.title, length: 20, truncate_string: "...") %> <small>(<%= movie.release_year %>)</small></h4>
 				<span>Qualität:</span><%= Quality.find(movie.quality_id).name %><br />
-				<span>Dauer:</span><%= t("text.movie.hours", count: movie.length/60) %> <%= t("text.movie.minutes", count: movie.length%60) %><br />
-				<span>
+				<span>Dauer:</span><%= t("text.movie.hours", count: movie.length/60) %> <%= t("text.movie.minutes", count: movie.length%60) %>
 			</div>
 			<%= image_tag("accepted.png", class: "visited") if @current_user.has_seen?(movie) %>
 			<div class="clear"></div>

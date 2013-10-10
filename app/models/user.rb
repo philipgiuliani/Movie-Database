@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
 	attr_accessor :avatar
-
 	has_secure_password
-	has_attached_file :avatar, styles: { medium: "300x300>", small: "100x100>" },
+
+	has_attached_file :avatar, styles: { big: "300x300>", medium: "160x160>", small: "100x100>" },
 										url: "/assets/:attachment/:id/:style.:extension",
 										path: ":rails_root/public/assets/:attachment/:id/:style.:extension",
-										default_url: "/assets/:attachment/missing/:style.png"
+										default_url: "/assets/:attachment/missing/:style.jpg"
 
-	validates :username, uniqueness: true, presence: true
+	validates :username, presence: true, uniqueness: true, case_sensitive: false, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 	validates :firstname, presence: true
 	validates :lastname, presence: true
 	validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..2.megabytes }
@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
 
 	def is_admin?
 		admin
+	end
+
+	def is_active?
+		active
 	end
 	
 	def has_seen?(movie)

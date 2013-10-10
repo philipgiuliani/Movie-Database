@@ -1,50 +1,38 @@
-<h2>Benutzer</h2>
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Vorname</th>
-			<th>Nachname</th>
-			<th>Aktionen</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @users.each do |user| %>
-		<tr>
-			<td><%= user.id %></td>
-			<td><%= user.firstname %></td>
-			<td><%= user.lastname %></td>
-			<td>
-				<%= link_to "Profil", user_path(user) %>
-			</td>
-		</tr>
+<div class="users_header">
+	<h2>Benutzer</h2>
+</div>
+
+<div class="users_list">
+	<% @users.each do |user| %>
+		<%= link_to user_path(user), class: "user_item" do %>
+			<%= image_tag user.avatar(:medium), class: "avatar" %>
+			<div class="information">
+				<h4><%= user.full_name %></h4>
+				<span>Gesehen:</span><%= user.seen_movies.length %><br />
+				<span>Bewertet:</span><%= user.ratings.length %>
+			</div>
+			<div class="clear"></div>
 		<% end %>
-	</tbody>
-</table>
-<br /><br />
-<% if @current_user.is_admin? %>
+	<% end %>
+	<div class="clear"></div>
+</div>
+
+<% if @current_user.is_admin? && !@users_not_active.empty? %>
 	<h2>Nicht aktivierte Benutzer</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Vorname</th>
-				<th>Nachname</th>
-				<th>Aktionen</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @users_not_active.each do |user| %>
-			<tr>
-				<td><%= user.id %></td>
-				<td><%= user.firstname %></td>
-				<td><%= user.lastname %></td>
-				<td>
-					<%= link_to "Aktivieren", user_path(user), method: :activate %>
+	<div class="users_list">
+		<% @users_not_active.each do |user| %>
+			<span class="user_item">
+				<%= image_tag user.avatar(:medium), class: "avatar" %>
+				<div class="information">
+					<h4><%= user.full_name %></h4>
+					<%= link_to "Aktivieren", user_path(user), method: :activate %><br />
 					<%= link_to "Löschen", user_path(user), method: :delete %>
-				</td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
+				</div>
+				<div class="clear"></div>
+			</span>
+		<% end %>
+		<div class="clear"></div>
+	</div>
 <% end %>
+
+					
