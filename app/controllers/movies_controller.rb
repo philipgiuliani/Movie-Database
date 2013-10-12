@@ -1,8 +1,9 @@
 class MoviesController < ApplicationController
 	before_filter :require_login
+	before_filter :require_admin, only: [:update, :edit, :destroy, :create, :new]
 
 	def index
-		@movies = Movie.search(params[:search]).order("title asc").includes([:created_by_id, :updated_by_id]).paginate(per_page: 20, page: params[:page])
+		@movies = Movie.search(params[:search]).order(sort_column).paginate(per_page: 20, page: params[:page])
 	end
 
 	def show
@@ -22,7 +23,8 @@ class MoviesController < ApplicationController
 	def create
 		@movie = Movie.new(movie_params)
 		if @movie.save
-			redirect_to movies_path, notice: t("messages.new_movie")
+			flash[:success] = t("messages.new_movie")
+			redirect_to movies_path
 		else
 			render "new"
 		end
@@ -31,7 +33,8 @@ class MoviesController < ApplicationController
 	def update
 		@movie = Movie.find(params[:id])
 		if @movie.update_attributes(movie_params)
-			redirect_to movie_path(@movie), notice: t("messages.edit_movie")
+			flash[:success] = t("messages.edit_movie")
+			redirect_to movie_path(@movie)
 		else
 			render "edit"
 		end
@@ -40,12 +43,25 @@ class MoviesController < ApplicationController
 	def destroy
 		@movie = Movie.find(params[:id])
 		@movie.destroy
-		redirect_to movies_path, notice: t("messages.delete_movie")
+		flash[:success] = t("messages.delete_movie")
+		redirect_to movies_path
 	end
 
 	private
 
 	def movie_params
 		params.require(:movie).permit(:title, :subtitle, :quality_id, :three_dimensional, :length, :size, :information, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
+	end
+
+	def sort_column
+		params[:sort] || "title"
+		case params[:sort]
+			when "title"
+				"title asc"
+			when "new"
+				"created_at desc"
+			else
+				"title asc"
+		end
 	end
 end

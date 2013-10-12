@@ -1,5 +1,5 @@
 <h2>Profil bearbeiten</h2>
-<%= form_for @user, html: { multipart: true } do |f| %>
+<%= form_for @user, html: { multipart: true, autocomplete: "off" } do |f| %>
 	<% if @user.errors.any? %>
 	<ul>
 		<% @user.errors.full_messages.each do |msg| %>
@@ -21,6 +21,10 @@
 		<%= f.file_field :avatar %>
 	</p>
 	<p>
+		<%= f.label :highlights_view %>
+		<%= f.select :highlights_view, [["Empfohlene Filme", "recommended"], ["Neue Filme", "new"]] %>
+	</p>
+	<p>
 		<%= f.label :password %>
 		<%= f.password_field :password %>
 	</p>
@@ -28,5 +32,5 @@
 		<%= f.label :password_confirmation %>
 		<%= f.password_field :password_confirmation %>
 	</p>
-	<p><%= f.submit %></p>
+	<p><%= f.submit "Bearbeiten", class: "button" %></p>
 <% end %>

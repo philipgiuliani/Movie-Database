@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131008164805) do
+ActiveRecord::Schema.define(version: 20131011195640) do
 
   create_table "genres", force: true do |t|
     t.string   "name"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20131008164805) do
     t.datetime "avatar_updated_at"
     t.boolean  "active",              default: false
     t.boolean  "admin",               default: false
+    t.string   "highlights_view",     default: "recommended"
   end
 
 end

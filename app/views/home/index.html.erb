@@ -1,16 +1,10 @@
 <h2>Startseite</h2>
+<p>Ideen für die Startseite? Bitte bei Philip melden!</p>
 
-<h3>Die Letzten 5 hinzugefügten Filme</h3>
+<h3>Die Letzten 5 bewerteten Filme</h3>
 <ul>
-  <% @movies_new.each do |movie| %>
-    <li><%= "#{movie.title} - hinzugefügt von #{movie.created_by_id.full_name}" %></li>
-  <% end %>
-</ul>
-
-<h3>Die Letzten 5 aktualisierten Filme</h3>
-<ul>
-  <% @movies_updated.each do |movie| %>
-    <li><%= "#{movie.title} - aktualisiert von #{movie.updated_by_id.full_name}" %></li>
+  <% @last_ratings.each do |rating| %>
+    <li><%= "#{rating.user.full_name} hat #{rating.movie.title} bewertet" %></li>
   <% end %>
 </ul>
 

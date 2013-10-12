@@ -9,34 +9,36 @@
 	<div class="clear"></div>
 </div>
 
-<div class="user_ratings">
-	<h2>Letzte 5 Bewertungen</h2>
-
-	<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
-	<div class="rating">
-		<%= image_tag rating.movie.cover(:small), class: "cover" %>
-
-		<div class="text">
-			<%= rating.user.full_name %> sagt zu <%= link_to rating.movie.title, movie_path(rating.movie) %>,<br />
-			<%= rating.comment %><br />
-			<% if rating.user == @current_user %>
-				<%= link_to "Edit", edit_movie_rating_path(rating.movie, rating) %>
-				<%= link_to "Delete", movie_rating_path(rating.movie, rating), method: :delete %>
-			<% end %>
+<% if @user.ratings.count > 0 %>
+	<div class="user_ratings">
+		<h2>Letzte 5 Bewertungen</h2>
+		<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
+		<div class="rating">
+			<%= image_tag rating.movie.cover(:small), class: "cover" %>
+			<div class="text">
+				<%= rating.user.full_name %> sagt zu <%= link_to rating.movie.title, movie_path(rating.movie), class: "movie_link" %>,<br />
+				<%= rating.comment %><br />
+				<% if rating.user == @current_user %>
+					<%= link_to "Edit", edit_movie_rating_path(rating.movie, rating) %>
+					<%= link_to "Delete", movie_rating_path(rating.movie, rating), method: :delete %>
+				<% end %>
+			</div>
+			<div class="ratings">
+				<span>Gesamt:</span> <%= stars_images(rating.rating_average) %><br />
+				<span>Film:</span> <%= stars_images(rating.rating_general) %><br />
+				<span>Qualität:</span> <%= stars_images(rating.rating_quality) %><br />
+			</div>
+			<div class="clear"></div>
 		</div>
-		<div class="ratings">
-			<span>Gesamt:</span> <%= stars_images(rating.rating_average) %><br />
-			<span>Film:</span> <%= stars_images(rating.rating_general) %><br />
-			<span>Qualität:</span> <%= stars_images(rating.rating_quality) %><br />
-		</div>
-		<div class="clear"></div>
+		<% end %>
 	</div>
-	<% end %>
-</div>
+<% end %>
 
+<% if @user.seen_movies.count > 0 %>
 <h3>Die Letzten gesehenen Filme</h3>
-<ul>
-	<% @user.seen_movies.all(order: "created_at desc", limit: "0,5").each do |seen_movie| %>
-		<li><%= "#{seen_movie.movie.title} am #{seen_movie.created_at}" %></li>
-	<% end %>
-</ul>
+	<ul>
+		<% @user.seen_movies.all(order: "created_at desc", limit: "0,5").each do |seen_movie| %>
+			<li><%= "#{seen_movie.movie.title} am #{seen_movie.created_at}" %></li>
+		<% end %>
+	</ul>
+<% end %>

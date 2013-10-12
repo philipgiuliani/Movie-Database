@@ -26,6 +26,8 @@ de:
         username: "Benutzername"
         firstname: "Vorname"
         lastname: "Nachname"
+        avatar: "Benutzerbild"
+        highlights_view: "Ansicht"
         password_digest: "Passwort"
         password: "Passwort"
         password_confirmation: "Passwortbestätigung"

@@ -1,0 +1,7 @@
+<div id="toggle_button">
+	<% if @current_user.has_seen?(@movie) %>
+		<%= link_to "Gesehen", movie_seen_movies_path(@movie), class: "button active", remote: true, method: :post %>
+	<% else %>
+		<%= link_to "Nicht gesehen", movie_seen_movies_path(@movie), class: "button", remote:true, method: :post %>
+	<% end %>
+</div>

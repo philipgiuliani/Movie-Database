@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		if @user.update_attributes(user_params)
+		if @user.update_attributes(user_params_edit)
       redirect_to edit_user_path, notice: "Profil bearbeitet"
   	else
   	  render "edit"
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 			user.destroy
 			redirect_to users_path, notice: "Der Benutzer wurde erfolgreich gelöscht"
 		else
-			redirect_to users_path, notice: "Keine Berechtigungen"
+			redirect_to users_path, alert: "Keine Berechtigungen"
 		end
 	end
 
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.new(user_params)
+		@user = User.new(user_params_create)
 		if @user.save
 			redirect_to login_path, notice: "Sie haben sich erfolgreich registriert. Ihr Konto muss erst von einem Administrator aktiviert werden."
 		else
@@ -63,7 +63,11 @@ class UsersController < ApplicationController
 
 	private
 
-	def user_params
-		params.require(:user).permit(:username, :firstname, :lastname, :password, :password_confirmation, :avatar)
+	def user_params_create
+		params.require(:user).permit(:username, :firstname, :lastname, :password, :password_confirmation)
+	end
+
+	def user_params_edit
+		params.require(:user).permit(:username, :firstname, :lastname, :password, :password_confirmation, :avatar, :highlights_view)
 	end
 end

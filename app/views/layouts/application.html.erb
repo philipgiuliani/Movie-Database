@@ -21,7 +21,7 @@
 				<%= nav_link_to "BENUTZER", users_path, {}, { ignore_params: true } %>
 			</div>
 			<div class="user">
-				<% if user_signed_in? %>
+				<% if @current_user.present? %>
 					<%= image_tag @current_user.avatar(:small) %>
 					<div class="settings">
 						Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
@@ -35,31 +35,53 @@
 		</div>
 	</div>
 
-	<div id="recommended_movies">
+	<% if @current_user %>
+	<div id="highlights">
 		<div class="inner">
-			<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
-				<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
-					<% if index == 0 %>
-						<%= image_tag movie.cover(:big) %>
-						<div class="caption">
-							<%= movie.title %>
-							<span>hinzugef&uuml;gt am <%= movie.created_at.utc.strftime("%d.%m.%Y - %H:%M") %></span>
-						</div>
-					<% else %>
-						<%= image_tag movie.cover(:medium) %>
-						<div class="caption">
-							<%= movie.title %>
-							<span><%= movie.created_at.utc.strftime("%d.%m.%Y") %></span>
-						</div>
+			<% if @current_user.highlights_view == "recommended" %>
+				<h2>Empfohlene Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
+				<div id="highlights_content">
+					<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
+						<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
+							<% if index == 0 %>
+								<%= image_tag movie.cover(:big) %>
+								<div class="caption">
+									<%= movie.title %>
+									<span>hinzugef&uuml;gt am <%= movie.created_at.utc.strftime("%d.%m.%Y - %H:%M") %></span>
+								</div>
+							<% else %>
+								<%= image_tag movie.cover(:medium) %>
+								<div class="caption">
+									<%= movie.title %>
+									<span><%= movie.created_at.utc.strftime("%d.%m.%Y") %></span>
+								</div>
+							<% end %>
+						<% end %>
 					<% end %>
-				<% end %>
+				</div>
+			<% else %>
+				<h2>Neue Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
+				<div id="highlights_content">
+					<% Movie.all(order: "id DESC", limit: "0,4").each_with_index do |movie, index| %>
+						<%= link_to movie_path(movie), class: 'new-movie' do %>
+							<%= image_tag movie.cover(:medium) %>
+							<div class="caption">
+								<%= movie.title %>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
 			<% end %>
+			<div class="clear"></div>
 		</div>
 	</div>
+	<% end %>
+
 	<div id="content">
-		<% if flash[:notice] %><div class="message notice"><%= flash[:notice] %></div><% end %>
-		<% if flash[:alert] %><div class="message alert"><%= flash[:alert] %></div><% end %>
-		<%= yield %>
+		<% flash.each do |key, value| %>
+			<div class="<%= flash_class(key) %>"><%= value %></div>
+		<% end %>
+  		<%= yield %>
 	</div>
 
 </body>
