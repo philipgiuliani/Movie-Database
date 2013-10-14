@@ -1,14 +1,17 @@
 Moviedatabase::Application.routes.draw do
 	root "home#index"
-
-	get "home", to:  "home#index"
+	
+	get "home" => "home#index", as: "home"
+	resources :statuses, only: [:create]
 
 	resources :users
 	post 'users/:id' => 'users#activate', as: :activate
+
 	resources :movies do
 		resources :ratings, only: [:create, :edit, :update, :destroy]
 		post :seen_movies, action: "toggle_status", controller: :seen_movies
 	end
+
 	get "login", to: "sessions#new", as: "login"
 	post "sessions" => "sessions#create", as: "sessions"
 	delete "logout" => "sessions#destroy", as: "logout"

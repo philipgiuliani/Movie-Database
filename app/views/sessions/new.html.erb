@@ -9,5 +9,9 @@
 		<%= label_tag :password %>
 		<%= password_field_tag :password %>
 	</p>
+	<p>
+		<%= label_tag :remember_me %>
+		<%= check_box_tag :remember_me, 1, params[:remember_me] %>
+	</p>
 	<p><%= submit_tag "Anmelden", class: "button small" %> <%= link_to "Registriren", new_user_path, class: "button small" %></p>
 <% end %>

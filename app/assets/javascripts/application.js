@@ -14,9 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-$(function() {
-	$(document).on("ajax:success", "#toggle_button a", function(e, data, status, xhr) {
-		$("#toggle_button").html(data);
-	});
-});

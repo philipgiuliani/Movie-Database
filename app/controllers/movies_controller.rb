@@ -23,8 +23,7 @@ class MoviesController < ApplicationController
 	def create
 		@movie = Movie.new(movie_params)
 		if @movie.save
-			flash[:success] = t("messages.new_movie")
-			redirect_to movies_path
+			redirect_to movie_path(@movie), notice: t("messages.new_movie")
 		else
 			render "new"
 		end
@@ -33,8 +32,7 @@ class MoviesController < ApplicationController
 	def update
 		@movie = Movie.find(params[:id])
 		if @movie.update_attributes(movie_params)
-			flash[:success] = t("messages.edit_movie")
-			redirect_to movie_path(@movie)
+			redirect_to movie_path(@movie), notice: t("messages.edit_movie")
 		else
 			render "edit"
 		end
@@ -43,8 +41,7 @@ class MoviesController < ApplicationController
 	def destroy
 		@movie = Movie.find(params[:id])
 		@movie.destroy
-		flash[:success] = t("messages.delete_movie")
-		redirect_to movies_path
+		redirect_to movies_path, notice: t("messages.delete_movie")
 	end
 
 	private

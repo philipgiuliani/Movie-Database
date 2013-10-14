@@ -2,43 +2,38 @@
 	<%= image_tag @user.avatar.url(:medium) %>
 	<span class="information">
 		<h2><%= @user.full_name %></h2>
-		<span>Hinzugefügte Filme:</span> <%= @user.movies.count %><br />
 		<span>Gesehene Filme:</span> <%= @user.seen_movies.count %><br />
 		<span>Bewertete Filme:</span> <%= @user.ratings.count %>
 	</span>
 	<div class="clear"></div>
 </div>
+<%= (link_to "Benutzer löschen", user_path(@user), method: :delete, class: "button small") if @current_user.is_admin? %>
 
-<% if @user.ratings.count > 0 %>
-	<div class="user_ratings">
-		<h2>Letzte 5 Bewertungen</h2>
-		<% @user.ratings.all(order: "created_at desc", limit: "0,5").each do |rating| %>
-		<div class="rating">
-			<%= image_tag rating.movie.cover(:small), class: "cover" %>
-			<div class="text">
-				<%= rating.user.full_name %> sagt zu <%= link_to rating.movie.title, movie_path(rating.movie), class: "movie_link" %>,<br />
-				<%= rating.comment %><br />
-				<% if rating.user == @current_user %>
-					<%= link_to "Edit", edit_movie_rating_path(rating.movie, rating) %>
-					<%= link_to "Delete", movie_rating_path(rating.movie, rating), method: :delete %>
-				<% end %>
-			</div>
-			<div class="ratings">
-				<span>Gesamt:</span> <%= stars_images(rating.rating_average) %><br />
-				<span>Film:</span> <%= stars_images(rating.rating_general) %><br />
-				<span>Qualität:</span> <%= stars_images(rating.rating_quality) %><br />
-			</div>
+<h2>Letzte Aktivitäten</h2>
+<div id="activities">
+	<% @last_activities.each do |activity| %>
+		<div class="activity">
+			<% if activity.class == SeenMovie %>
+				<div class="activity_movie"><%= image_tag activity.movie.cover(:small) %></div>
+				<div class="activity_description">
+					<b>Ich habe,</b><br />
+					<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} als gesehen markiert" %>
+				</div>
+			<% elsif activity.class == Rating %>
+				<div class="activity_movie"><%= image_tag activity.movie.cover(:small) %></div>
+				<div class="activity_description">
+					<b>Ich habe,</b><br />
+					<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} Bewertet. Film: #{activity.rating_general}, Qualität: #{activity.rating_quality}" %><br />
+					<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+				</div>
+			<% elsif activity.class == Status %>
+				<div class="activity_user"><%= image_tag activity.user.avatar(:small) %></div>
+				<div class="activity_description">
+					<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat</b> vor <%= time_ago_in_words(activity.created_at) %> einen Status geschrieben:<br />
+					<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+				</div>
+			<% end %>
 			<div class="clear"></div>
 		</div>
-		<% end %>
-	</div>
-<% end %>
-
-<% if @user.seen_movies.count > 0 %>
-<h3>Die Letzten gesehenen Filme</h3>
-	<ul>
-		<% @user.seen_movies.all(order: "created_at desc", limit: "0,5").each do |seen_movie| %>
-			<li><%= "#{seen_movie.movie.title} am #{seen_movie.created_at}" %></li>
-		<% end %>
-	</ul>
-<% end %>
+	<% end %>
+</div>

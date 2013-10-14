@@ -9,6 +9,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    last_ratings = @user.ratings.all(order: "created_at desc", limit: "0,5")
+    movies_seen = @user.seen_movies.all(order: "created_at desc", limit: "0,5")
+    last_statuses = @user.statuses.all(order: "created_at desc", limit: "0,5")
+    @last_activities = (last_ratings + movies_seen + last_statuses).sort{|b,a| a.created_at <=> b.created_at }[0..5]
   end
 
 	def new

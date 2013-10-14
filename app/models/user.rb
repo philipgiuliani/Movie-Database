@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
 	has_many :movies, :foreign_key => 'created_by_id'
 	has_many :ratings, dependent: :destroy
+	has_many :statuses, dependent: :destroy
 	has_many :seen_movies, dependent: :destroy
 	
 	def full_name

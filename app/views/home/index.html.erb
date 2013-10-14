@@ -1,16 +1,35 @@
-<h2>Startseite</h2>
-<p>Ideen für die Startseite? Bitte bei Philip melden!</p>
+<h2>Letzte Aktivitäten</h2>
+<%= form_for @status do |f| %>
+	<div class="status_avatar"><%= image_tag @current_user.avatar(:small) %></div>
+	<div class="status_text_field"><%= f.text_field :comment, placeholder: "Teilen Sie den anderen etwas mit" %></div>
+	<%= f.submit "Speichern", class: "button" %>
+	<div class="clear"></div>
+<% end %>
 
-<h3>Die Letzten 5 bewerteten Filme</h3>
-<ul>
-  <% @last_ratings.each do |rating| %>
-    <li><%= "#{rating.user.full_name} hat #{rating.movie.title} bewertet" %></li>
-  <% end %>
-</ul>
-
-<h3>Die Letzten 5 gesehenen Filme</h3>
-<ul>
-  <% @movies_seen.each do |seen_movie| %>
-    <li><%= "#{seen_movie.user.full_name} hat #{seen_movie.movie.title} vor #{time_ago_in_words(seen_movie.created_at)} als gesehen markiert" %></li>
-  <% end %>
-</ul>
+<div id="activities">
+	<% @last_activities.each do |activity| %>
+		<div class="activity">
+			<% if activity.class == SeenMovie %>
+				<div class="activity_user"><%= image_tag activity.user.avatar(:small) %></div>
+				<div class="activity_description">
+					<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat,</b><br />
+					<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} als gesehen markiert" %>
+				</div>
+			<% elsif activity.class == Rating %>
+				<div class="activity_user"><%= image_tag activity.user.avatar(:small) %></div>
+				<div class="activity_description">
+					<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat,</b><br />
+					<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} Bewertet. Film: #{activity.rating_general}, Qualität: #{activity.rating_quality}" %><br />
+					<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+				</div>
+			<% elsif activity.class == Status %>
+				<div class="activity_user"><%= image_tag activity.user.avatar(:small) %></div>
+				<div class="activity_description">
+					<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat</b> vor <%= time_ago_in_words(activity.created_at) %> einen Status geschrieben:<br />
+					<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+				</div>
+			<% end %>
+			<div class="clear"></div>
+		</div>
+	<% end %>
+</div>

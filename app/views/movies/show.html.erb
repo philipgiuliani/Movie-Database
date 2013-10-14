@@ -1,16 +1,27 @@
 <div class="movie_description">
 	<%= image_tag @movie.cover(:medium) %>
-	<span class="information">
-		<h2><%= truncate(@movie.title, length: 30, truncate_string: "...") %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
-		<span>Erscheinungsjahr:</span> <%= @movie.release_year %><br />
-		<span>Dauer:</span> <%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %><br />
-		<span>Größe:</span> <%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte<br />
-		<span>Qualität:</span> <%= Quality.find(@movie.quality_id).name %><br />
-		<span>Gesehen von:</span> <%= t("text.movie.persons", count: @movie.seen_movies.count) %><br />
-		<span>Kategorien:</span> <%= truncate(@movie.genres.map { |g| g.name }.join(", "), length: 40, truncate_string: "...") %>
-	</span>
+	<div class="information">
+		<h2 title="<%= @movie.title %>"><%= truncate(@movie.title, length: 30, truncate_string: "...") %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
+		<div><span>Erscheinungsjahr:</span><%= @movie.release_year %></div>
+		<div><span>Dauer:</span><%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %></div>
+		<div><span>Größe:</span><%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte</div>
+		<div><span>Qualität:</span><%= Quality.find(@movie.quality_id).name %></div>
+		<div><span>Kategorien:</span><%= truncate(@movie.genres.map { |g| g.name }.join(", "), length: 40, truncate_string: "...") %></div>
+		<div>
+			<span class="label">Gesehen von:</span>
+			<div class="avatars_small">
+				<% if @movie.seen_movies.count > 0 %>
+					<% @movie.seen_movies.each do |seen_movie| %>
+						<%= link_to (image_tag seen_movie.user.avatar(:small)), user_path(seen_movie.user), title: seen_movie.user.full_name %>
+					<% end %>
+				<% else %>
+					<%= t("text.movie.persons", count: 0) %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 	<div class="clear"></div>
-	<%= render partial: "toggle_button" %>
+	<%= render partial: "movies/toggle_button" %>
 </div>
 
 <% if @current_user.is_admin? %>

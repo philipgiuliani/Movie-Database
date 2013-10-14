@@ -6,7 +6,13 @@ class SessionsController < ApplicationController
 		user = User.find_by_username(params[:username])
 		if user && user.authenticate(params[:password])
 			if user.active
-				session[:user_id] = user.id
+				if params[:remember_me]
+					cookies.permanent[:auth_user] = user.username
+					cookies.permanent[:auth_password] = user.password_digest
+				else
+					cookies[:auth_user] = user.username
+					cookies[:auth_password] = user.password_digest
+				end
 				redirect_to home_path, notice: "Erfolgreich eingeloggt"
 			else
 				flash.now.alert = "Das Benutzerkonto muss zuerst von einem Administrator aktiviert werden"
@@ -19,7 +25,8 @@ class SessionsController < ApplicationController
 	end
 
 	def destroy
-		session[:user_id] = nil
+		cookies.delete(:auth_user)
+		cookies.delete(:auth_password)
 		redirect_to home_path, notice: "Erfolgreich abgemeldet"
 	end
 end

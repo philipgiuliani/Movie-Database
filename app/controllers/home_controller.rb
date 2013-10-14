@@ -2,8 +2,11 @@ class HomeController < ApplicationController
 	before_filter :require_login
 	
 	def index
-		@current_user = current_user
-		@last_ratings = Rating.all(order: "created_at desc", limit: "0,5", include: [:movie, :user])
-		@movies_seen = SeenMovie.all(order: "created_at desc", limit: "0,5", include: [:movie, :user])
+		@status = current_user.statuses.build
+
+		last_ratings = Rating.all(order: "created_at desc", limit: "0,10", include: [:movie, :user])
+		movies_seen = SeenMovie.all(order: "created_at desc", limit: "0,10", include: [:movie, :user])
+		last_statuses = Status.all(order: "created_at desc", limit: "0,10", include: [:user])
+		@last_activities = (last_ratings + movies_seen + last_statuses).sort{|b,a| a.created_at <=> b.created_at }[0..10]
 	end
 end

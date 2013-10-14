@@ -17,7 +17,8 @@
 			<div class="information">
 				<h4><%= truncate(movie.title, length: 20, truncate_string: "...") %> <small>(<%= movie.release_year %>)</small></h4>
 				<span>Qualität:</span><%= Quality.find(movie.quality_id).name %><br />
-				<span>Dauer:</span><%= t("text.movie.hours", count: movie.length/60) %> <%= t("text.movie.minutes", count: movie.length%60) %>
+				<span>Dauer:</span><%= t("text.movie.hours", count: movie.length/60) %> <%= t("text.movie.minutes", count: movie.length%60) %><br />
+				<span>Gesehen:</span><%= t("text.movie.persons", count: movie.seen_movies.count) %>
 			</div>
 			<%= image_tag("accepted.png", class: "visited") if @current_user.has_seen?(movie) %>
 			<div class="clear"></div>

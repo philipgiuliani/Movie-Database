@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Moviedatabase</title>
+  <title>meinefilme.net - </title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -11,77 +11,86 @@
 </head>
 <body>
 
-	<div id="navigation">
-		<div class="inner">
-			<div class="brand">
-				<%= link_to "meine<span>filme.net</span>".html_safe, home_path %>
-			</div>
-			<div class="menu">
-				<%= nav_link_to "FILME", movies_path, {}, { ignore_params: true } %>
-				<%= nav_link_to "BENUTZER", users_path, {}, { ignore_params: true } %>
-			</div>
-			<div class="user">
-				<% if @current_user.present? %>
-					<%= image_tag @current_user.avatar(:small) %>
-					<div class="settings">
-						Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
-						<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %> - <%= link_to "Abmelden", logout_path, method: :delete %>
-					</div>
-				<% else %>
-					Sie sind nicht eingeloggt
-				<% end %>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+	<div id="container">
 
-	<% if @current_user %>
-	<div id="highlights">
-		<div class="inner">
-			<% if @current_user.highlights_view == "recommended" %>
-				<h2>Empfohlene Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
-				<div id="highlights_content">
-					<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
-						<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
-							<% if index == 0 %>
-								<%= image_tag movie.cover(:big) %>
-								<div class="caption">
-									<%= movie.title %>
-									<span>hinzugef&uuml;gt am <%= movie.created_at.utc.strftime("%d.%m.%Y - %H:%M") %></span>
-								</div>
-							<% else %>
-								<%= image_tag movie.cover(:medium) %>
-								<div class="caption">
-									<%= movie.title %>
-									<span><%= movie.created_at.utc.strftime("%d.%m.%Y") %></span>
-								</div>
+		<div id="navigation">
+			<div class="inner">
+				<div class="brand">
+					<%= link_to "meine<span>filme.net</span>".html_safe, home_path %>
+				</div>
+				<div class="menu">
+					<%= nav_link_to "FILME", movies_path, {}, { ignore_params: true } %>
+					<%= nav_link_to "BENUTZER", users_path, {}, { ignore_params: true } %>
+				</div>
+				<div class="user">
+					<% if @current_user.present? %>
+						<%= image_tag @current_user.avatar(:small) %>
+						<div class="settings">
+							Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
+							<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %> - <%= link_to "Abmelden", logout_path, method: :delete %>
+						</div>
+					<% else %>
+						Sie sind nicht eingeloggt
+					<% end %>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<% if @current_user %>
+		<div id="highlights">
+			<div class="inner">
+				<% if @current_user.highlights_view == "recommended" %>
+					<h2>Empfohlene Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
+					<div id="highlights_content">
+						<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
+							<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
+								<% if index == 0 %>
+									<%= image_tag movie.cover(:big) %>
+									<div class="caption">
+										<%= movie.title %>
+										<span>hinzugef&uuml;gt am <%= movie.created_at.utc.strftime("%d.%m.%Y - %H:%M") %></span>
+									</div>
+								<% else %>
+									<%= image_tag movie.cover(:medium) %>
+									<div class="caption">
+										<%= movie.title %>
+										<span><%= movie.created_at.utc.strftime("%d.%m.%Y") %></span>
+									</div>
+								<% end %>
 							<% end %>
 						<% end %>
-					<% end %>
-				</div>
-			<% else %>
-				<h2>Neue Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
-				<div id="highlights_content">
-					<% Movie.all(order: "id DESC", limit: "0,4").each_with_index do |movie, index| %>
-						<%= link_to movie_path(movie), class: 'new-movie' do %>
-							<%= image_tag movie.cover(:medium) %>
-							<div class="caption">
-								<%= movie.title %>
-							</div>
+					</div>
+				<% else %>
+					<h2>Neue Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
+					<div id="highlights_content">
+						<% Movie.all(order: "id DESC", limit: "0,4").each do |movie| %>
+							<%= link_to movie_path(movie), class: 'new-movie' do %>
+								<%= image_tag movie.cover(:medium) %>
+								<div class="caption"><%= movie.title %></div>
+							<% end %>
 						<% end %>
-					<% end %>
-				</div>
-			<% end %>
-			<div class="clear"></div>
+					</div>
+				<% end %>
+				<div class="clear"></div>
+			</div>
 		</div>
-	</div>
-	<% end %>
-
-	<div id="content">
-		<% flash.each do |key, value| %>
-			<div class="<%= flash_class(key) %>"><%= value %></div>
 		<% end %>
-  		<%= yield %>
+
+		<div id="content">
+			<% flash.each do |key, value| %>
+				<div class="<%= flash_class(key) %>"><%= value %></div>
+			<% end %>
+	  		<%= yield %>
+		</div>
+
+		<div id="footer">
+			<div class="inner">
+				<div id="footer_left">Copyright &copy; by <%= link_to "meine<i>filme.net</i>".html_safe, "http://www.meinefilme.net" %></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
 	</div>
 
 </body>
