@@ -33,10 +33,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Custom added gems
+# Gems used for Moviedatabase
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip', '~> 3.0'
 gem 'will_paginate'
+gem 'roadie'
+gem 'whenever', :require => false
 
 # Use unicorn as the app server
 # gem 'unicorn'

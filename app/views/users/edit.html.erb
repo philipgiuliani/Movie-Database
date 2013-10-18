@@ -17,12 +17,20 @@
 		<%= f.text_field :lastname %>
 	</p>
 	<p>
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+	</p>
+	<p>
 		<%= f.label :avatar %>
 		<%= f.file_field :avatar %>
 	</p>
 	<p>
 		<%= f.label :highlights_view %>
 		<%= f.select :highlights_view, [["Empfohlene Filme", "recommended"], ["Neue Filme", "new"]] %>
+	</p>
+	<p>
+		<%= f.label :newsletter %>
+		<%= f.check_box :newsletter %>
 	</p>
 	<p>
 		<%= f.label :password %>

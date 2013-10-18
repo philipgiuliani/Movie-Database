@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014173924) do
+ActiveRecord::Schema.define(version: 20131016173328) do
 
   create_table "genres", force: true do |t|
     t.string   "name"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20131014173924) do
     t.boolean  "active",              default: false
     t.boolean  "admin",               default: false
     t.string   "highlights_view",     default: "recommended"
+    t.string   "email"
+    t.boolean  "newsletter",          default: true
   end
 
 end

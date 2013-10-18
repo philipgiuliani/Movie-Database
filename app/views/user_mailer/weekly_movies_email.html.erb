@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<style type="text/css">
+		body {
+			font-size: 14px;
+			font-family: Verdana, Tahoma, Arial;
+			color: #333333;
+		}
+		h1 {
+			font-size: 18px;
+		}
+		.movie_row td {
+			border-bottom: 1px solid #D6D6D6;
+			padding: 8px 0;
+		}
+		.movie_row .image {
+			height: 120px;
+			width: 92px;
+		}
+		.movie_row .image img {
+			height: 120px;
+			width: 80px;
+		}
+		.movie_row .information {
+			border-bottom: 1px solid #D6D6D6;
+			line-height: 25px;
+		}
+		.movie_row .information h3 {
+			margin-top: 5px;
+			margin-bottom: 12px;
+		}
+		.movie_row .information a {
+			text-decoration: none;
+			color: #333333;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Hallo <%= @user.full_name %></h1>
+		<p>In dieser Woche wurden insgesamt <%= @movies.count %> neue Filme hinzugefügt.</p>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<% @movies.each do |movie| %>
+			<tr class="movie_row">
+				<td class="image"><%= image_tag movie.cover(:small) %></td>
+				<td class="information">
+					<h3><%= movie.title %></h3>
+					<b>Qualität:</b> <%= "#{movie.quality.name}" %><br />
+					<b>Länge:</b> <%= "#{movie.length/60} Stunden #{movie.length%60} minuten" %><br />
+					<%= link_to "&raquo; Film anzeigen".html_safe, movie_url(movie) %>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+
+	</body>
+</html>
