@@ -1,0 +1,21 @@
+<div class="activity">
+	<div class="activity_user"><%= image_tag activity.user.avatar(:small) %></div>
+	<% if activity.class == SeenMovie %>
+		<div class="activity_description">
+			<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat,</b><br />
+			<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} als gesehen markiert" %>
+		</div>
+	<% elsif activity.class == Rating %>
+		<div class="activity_description">
+			<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat,</b><br />
+			<%= "#{activity.movie.title} vor #{time_ago_in_words(activity.created_at)} Bewertet. Film: #{activity.rating_general}, Qualität: #{activity.rating_quality}" %><br />
+			<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+		</div>
+	<% elsif activity.class == Status %>
+		<div class="activity_description">
+			<b><%= link_to activity.user.full_name, user_path(activity.user), class: "link_user" %> hat</b> vor <%= time_ago_in_words(activity.created_at) %> einen Status geschrieben:<br />
+			<%= "<span>&bdquo;#{activity.comment}&rdquo;</span>".html_safe %>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

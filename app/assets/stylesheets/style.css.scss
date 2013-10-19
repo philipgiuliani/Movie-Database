@@ -501,6 +501,14 @@ form {
 		}
 	}
 }
+#activities_loading {
+	width: 240px;
+	height: 30px;
+	line-height: 30px;
+	margin: 20px auto 0 auto;
+	padding-left: 25px;
+	background: transparent url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAzMDAgMzAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSI+DQogIDxwYXRoIGQ9Ik0gMTUwLDAgYSAxNTAsMTUwIDAgMCwxIDEwNi4wNjYsMjU2LjA2NiBsIC0zNS4zNTUsLTM1LjM1NSBhIC0xMDAsLTEwMCAwIDAsMCAtNzAuNzExLC0xNzAuNzExIHoiDQogICAgICAgIGZpbGw9IiM2ODY4NjgiPg0KICAgIDxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgYXR0cmlidXRlVHlwZT0iWE1MIiB0eXBlPSJyb3RhdGUiIGZyb209IjAgMTUwIDE1MCIgdG89IjM2MCAxNTAgMTUwIiBiZWdpbj0iMHMiIGR1cj0iMXMiIGZpbGw9ImZyZWV6ZSIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIC8+DQogIDwvcGF0aD4NCjwvc3ZnPg==") left center no-repeat;
+}
 
 // movies
 .movies_header {

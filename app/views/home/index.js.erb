@@ -1,0 +1,7 @@
+$('#activities').append('<%= j render partial: "activity", collection: @last_activities %>');
+<% if @last_activities.next_page %>
+	$('.pagination').replaceWith('<%= j will_paginate(@last_activities) %>');
+<% else %>
+	$('.pagination').remove();
+<% end %>
+<% sleep 0.5 %>

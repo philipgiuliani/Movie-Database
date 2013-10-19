@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>meinefilme.net - private filmdatenbank</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<title>meinefilme.net - private filmdatenbank</title>
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
 
-  <!-- meta -->
-  <meta name="robots" content="noindex" />
+	<!-- meta -->
+	<meta name="robots" content="noindex" />
 </head>
 <body>
 
@@ -43,7 +43,7 @@
 				<% if @current_user.highlights_view == "recommended" %>
 					<h2>Empfohlene Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
 					<div id="highlights_content">
-						<% Movie.all(order: "id DESC", limit: "0,3", conditions: { show_recommended: true }).each_with_index do |movie, index| %>
+						<% Movie.order("id DESC").limit("0,3").conditions({ show_recommended: true }).each_with_index do |movie, index| %>
 							<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
 								<% if index == 0 %>
 									<%= image_tag movie.cover(:big) %>
@@ -64,7 +64,7 @@
 				<% else %>
 					<h2>Neue Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
 					<div id="highlights_content">
-						<% Movie.all(order: "id DESC", limit: "0,4").each do |movie| %>
+						<% Movie.order("id DESC").limit("0,4").each do |movie| %>
 							<%= link_to movie_path(movie), class: 'new-movie' do %>
 								<%= image_tag movie.cover(:medium) %>
 								<div class="caption"><%= movie.title %></div>
