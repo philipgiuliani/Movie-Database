@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  movie_title: MyString
+  status: MyString
+  releasedate: 2013-10-19 15:53:01
+  movie_id: 1
+  created_by_id: 1
+  updated_by_id: 1
+
+two:
+  movie_title: MyString
+  status: MyString
+  releasedate: 2013-10-19 15:53:01
+  movie_id: 1
+  created_by_id: 1
+  updated_by_id: 1

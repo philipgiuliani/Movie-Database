@@ -1,0 +1,42 @@
+<h2>Wunschliste</h2>
+<table class="table" cellpadding="0" cellspacing="0">
+	<tr>
+		<th>Film Titel</th>
+		<th style="width: 150px">Hinzugefügt</th>
+		<th style="width: 100px">Datum</th>
+		<th style="width: 140px">Status</th>
+		<% if @current_user.is_admin? %>
+			<th style="width: 190px">Aktionen</th>
+		<% end %>
+	</tr>
+	<% @wishes_opened.each do |wish| %>
+		<tr>
+			<td><%= wish.movie_title %></td>
+			<td><%= wish.created_by_id.full_name %></td>
+			<td><%= l wish.created_at.to_date, format: :default %></td>
+			<td><%= t("activerecord.attributes.wish.statuses.#{wish.status}") %></td>
+			<% if @current_user.is_admin? %>
+			<td>
+				<%= link_to "Bearbeiten", edit_wish_path(wish), class: "button small" %>
+				<%= link_to "Löschen", wish_path(wish), class: "button small", confirm: "Sicher dass du den Wunsch löschen möchtest?", method: :delete %>
+			</td>
+			<% end %>
+		</tr>
+	<% end %>
+	<% @wishes_completed.each do |wish| %>
+		<tr class="darker">
+			<td><%= wish.movie_title %></td>
+			<td><%= wish.created_by_id.full_name %></td>
+			<td><%= l wish.created_at.to_date, format: :default %></td>
+			<td><%= t("activerecord.attributes.wish.statuses.#{wish.status}") %></td>
+			<% if @current_user.is_admin? %>
+			<td>
+				<%= link_to "Bearbeiten", edit_wish_path(wish), class: "button small" %>
+				<%= link_to "Löschen", wish_path(wish), class: "button small", confirm: "Sicher dass du den Wunsch löschen möchtest?", method: :delete %>
+			</td>
+			<% end %>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to "Wunsch hinzufügen", new_wish_path, class: "button small" %>

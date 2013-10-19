@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_login, only: [:index, :show, :edit, :update]
-  before_filter :require_admin, only: [:activate]
+  before_filter :require_admin, only: [:activate, :destroy]
 
   def index
   	@users = User.all(order: "firstname, lastname asc", conditions: {active: true})
@@ -9,10 +9,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    last_ratings = @user.ratings.all(order: "created_at desc", limit: "0,5")
-    movies_seen = @user.seen_movies.all(order: "created_at desc", limit: "0,5")
-    last_statuses = @user.statuses.all(order: "created_at desc", limit: "0,5")
-    @last_activities = (last_ratings + movies_seen + last_statuses).sort{|b,a| a.created_at <=> b.created_at }[0..5]
+    last_ratings = @user.ratings.order("created_at desc").limit("0,8")
+    movies_seen = @user.seen_movies.order("created_at desc").limit("0,8")
+    last_statuses = @user.statuses.order("created_at desc").limit("0,8")
+		last_wishes = Wish.where("created_by_id = ?", @user.id).order("created_at desc").limit("0,8")
+    @last_activities = (last_ratings + movies_seen + last_statuses + last_wishes).sort{|b,a| a.created_at <=> b.created_at }[0..7]
   end
 
 	def new
@@ -41,12 +42,8 @@ class UsersController < ApplicationController
 
 	def destroy
 		user = User.find(params[:id])
-		if current_user.is_admin?
-			user.destroy
-			redirect_to users_path, notice: "Der Benutzer wurde erfolgreich gelöscht"
-		else
-			redirect_to users_path, alert: "Keine Berechtigungen"
-		end
+		user.destroy
+		redirect_to users_path, notice: "Der Benutzer wurde erfolgreich gelöscht"
 	end
 
 	def activate

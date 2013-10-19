@@ -22,7 +22,7 @@ class Movie < ActiveRecord::Base
 	validates :title, presence: true
 	validates :editing_user, presence: true
 	validates :quality, presence: true
-	validates :release_year, presence: true, :length => { :is => 4 }, numericality: { only_integer: true }
+	validates :release_year, presence: true, length: { is: 4 }, numericality: { only_integer: true }
 	validates :size, presence: true, numericality: { only_integer: true }
 	validates :length, presence: true, numericality: { only_integer: true }
 	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..5.megabytes }

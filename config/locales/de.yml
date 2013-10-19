@@ -5,6 +5,7 @@ de:
       quality: "Qualität"
       rating: "Bewertung"
       user: "Benutzer"
+      wish: "Wunsch"
     attributes:
       movie:
         title: "Titel"
@@ -31,6 +32,23 @@ de:
         password_digest: "Passwort"
         password: "Passwort"
         password_confirmation: "Passwortbestätigung"
+      wish:
+        movie_title: "Film Titel"
+        priority: "Priorität"
+        status: "Status"
+        movie_id: "Film ID"
+        statuses:
+          downloading: "Herunterladen"
+          waiting: "Warten"
+          not_found: "Nicht gefunden"
+          finished: "Fertig"
+          unknown: "Unbekannt"
+          cinema: "Im Kino"
+          released: "Bereits erhältlich"
+        priorities:
+          low: "Niedrig"
+          medium: "Mittel"
+          high: "Hoch"
     errors:
       messages:
         already_rated: "hat bereits bewertet"

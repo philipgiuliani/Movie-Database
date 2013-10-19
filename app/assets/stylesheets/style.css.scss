@@ -215,7 +215,7 @@ form {
 	}
 }
 
-#navigation {
+#headbar {
 	background: rgb(28,28,28);
 	width: 100%;
 	height: 70px;
@@ -230,7 +230,7 @@ form {
 	.brand a {
 		display: block;
 		float: left;
-		margin-right: 50px;
+		margin-right: 30px;
 		font-size: 32px;
 		color: #ffffff;
 		text-decoration: none;
@@ -249,10 +249,14 @@ form {
 			color: #ffffff;
 			text-decoration: none;
 			font-weight: 500;
-			margin-right: 30px;
+			margin-right: 15px;
 
-			&.selected {
+			&.selected, &:hover {
 				color: $color_main;
+			}
+
+			&:last-child {
+				margin-right: 0;
 			}
 		}
 	}
@@ -497,6 +501,19 @@ form {
 				color: #333333;
 				font-weight: 500;
 				text-decoration: none;
+				
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			a.link_movie {
+				text-decoration: none;
+				color: #333333;
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		}
 	}
@@ -971,5 +988,27 @@ form#new_status {
 	input[type="submit"] {
 		float: right;
 		height: 45px;
+	}
+}
+
+table.table {
+	width: 100%;
+	margin-bottom: 20px;
+
+	th {
+		border-bottom: 2px solid #919191;
+		line-height: 45px;
+		font-weight: normal;
+		text-align: left;
+	}
+
+	tr.darker {
+		background: rgba(0,0,0,.05);
+	}
+
+	td {
+		border-bottom: 1px solid #D6D6D6;
+		line-height: 45px;
+		padding: 0 0 0 5px;
 	}
 }

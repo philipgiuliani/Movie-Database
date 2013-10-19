@@ -1,0 +1,25 @@
+<h2>Wunsch hinzufügen</h2>
+<%= form_for @wish do |f| %>
+	<% unless @wish.errors.blank? %>
+		<ul>
+			<% @wish.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<p>
+		<%= f.label :movie_title %>
+		<%= f.text_field :movie_title %>
+	</p>
+	<p>
+		<%= f.label :priority %>
+		<%= f.select :priority, priority_values_translated(['low', 'medium', 'high']) %>
+	</p>
+	<p>
+		<%= f.label :status %>
+		<%= f.select :status, status_values_translated(['unknown', 'cinema', 'released']) %>
+	</p>
+	<p>
+		<%= f.submit "Speichern", class: "button small" %>
+	</p>
+<% end %>

@@ -38,7 +38,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip', '~> 3.0'
 gem 'will_paginate'
 gem 'roadie'
-gem 'whenever', :require => false
+gem 'whenever', require: false
+gem 'exception_notification', group: :production
 
 # Use unicorn as the app server
 # gem 'unicorn'

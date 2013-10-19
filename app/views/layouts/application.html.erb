@@ -10,10 +10,9 @@
 	<meta name="robots" content="noindex" />
 </head>
 <body>
-
 	<div id="container">
 
-		<div id="navigation">
+		<div id="headbar">
 			<div class="inner">
 				<div class="brand">
 					<%= link_to "meine<span>filme.net</span>".html_safe, home_path %>
@@ -21,6 +20,7 @@
 				<div class="menu">
 					<%= nav_link_to "FILME", movies_path, {}, { ignore_params: true } %>
 					<%= nav_link_to "BENUTZER", users_path, {}, { ignore_params: true } %>
+					<%= nav_link_to "WÜNSCHE", wishes_path, {}, { ignore_params: true } %>
 				</div>
 				<div class="user">
 					<% if @current_user.present? %>
@@ -29,8 +29,6 @@
 							Willkommen <%= link_to @current_user.full_name, user_path(@current_user) %><br />
 							<%= link_to "Profil bearbeiten", edit_user_path(@current_user) %> - <%= link_to "Abmelden", logout_path, method: :delete %>
 						</div>
-					<% else %>
-						Sie sind nicht eingeloggt
 					<% end %>
 				</div>
 				<div class="clear"></div>
@@ -43,7 +41,7 @@
 				<% if @current_user.highlights_view == "recommended" %>
 					<h2>Empfohlene Filme <%= link_to "(ansicht wechseln)", edit_user_path(@current_user) %></h2>
 					<div id="highlights_content">
-						<% Movie.order("id DESC").limit("0,3").conditions({ show_recommended: true }).each_with_index do |movie, index| %>
+						<% Movie.where("show_recommended = ?", true).order("id DESC").limit("0,3").each_with_index do |movie, index| %>
 							<%= link_to movie_path(movie), class: (index == 0 ? 'big' : 'small') do %>
 								<% if index == 0 %>
 									<%= image_tag movie.cover(:big) %>

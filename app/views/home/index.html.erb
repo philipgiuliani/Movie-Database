@@ -1,7 +1,7 @@
 <h2>Letzte Aktivitäten</h2>
 <%= form_for @status do |f| %>
 	<div class="status_avatar"><%= image_tag @current_user.avatar(:small) %></div>
-	<div class="status_text_field"><%= f.text_field :comment, placeholder: "Teilen Sie den anderen etwas mit" %></div>
+	<div class="status_text_field"><%= f.text_field :comment, placeholder: "Teilen Sie den anderen etwas mit", autocomplete: :off %></div>
 	<%= f.submit "Speichern", class: "button" %>
 	<div class="clear"></div>
 <% end %>

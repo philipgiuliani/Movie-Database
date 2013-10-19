@@ -1,0 +1,29 @@
+<h2>Wunsch bearbeiten</h2>
+<%= form_for @wish do |f| %>
+	<% unless @wish.errors.blank? %>
+		<ul>
+			<% @wish.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<p>
+		<%= f.label :movie_title %>
+		<%= f.text_field :movie_title %>
+	</p>
+	<p>
+		<%= f.label :priority %>
+		<%= f.select :priority, priority_values_translated(['low', 'medium', 'high']) %>
+	</p>
+	<p>
+		<%= f.label :status %>
+		<%= f.select :status, status_values_translated(['waiting','downloading','not_found', 'finished']) %>
+	</p>
+	<p>
+		<%= f.label :movie_id %>
+		<%= f.text_field :movie_id %>
+	</p>
+	<p>
+		<%= f.submit "Aktualisieren", class: "button small" %>
+	</p>
+<% end %>

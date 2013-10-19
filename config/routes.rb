@@ -7,6 +7,8 @@ Moviedatabase::Application.routes.draw do
 	resources :users
 	post 'users/:id' => 'users#activate', as: :activate
 
+	resources :wishes, except: :show
+
 	resources :movies do
 		resources :ratings, only: [:create, :edit, :update, :destroy]
 		post :seen_movies, action: "toggle_status", controller: :seen_movies

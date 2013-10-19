@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 	def require_admin
 		unless user_signed_in? && current_user.is_admin?
 			redirect_to movies_path, alert: "Keine Berechtigung"
+			false
 		end
 	end
 end
