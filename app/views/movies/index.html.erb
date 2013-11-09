@@ -29,6 +29,6 @@
 
 <div class="movies_footer">
 	<%= will_paginate @movies %>
-	<%= (link_to 'Film hinzufügen', new_movie_path, class: "button small") if @current_user.is_admin? %>
+	<%= (link_to "Film hinzufügen", new_movie_path, class: "button small") if @current_user.is_admin? %>
 	<div class="clear"></div>
 </div>

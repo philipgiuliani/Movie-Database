@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
 	before_filter :require_login
-	before_filter :require_admin, only: [:update, :edit, :destroy, :create, :new]
+	before_filter :require_admin, only: [:update, :edit, :destroy, :create, :new, :api_search_movie]
 
 	def index
 		@movies = Movie.search(params[:search]).order(sort_column).paginate(per_page: 20, page: params[:page])
@@ -44,10 +44,20 @@ class MoviesController < ApplicationController
 		redirect_to movies_path, notice: t("messages.delete_movie")
 	end
 
+	def api_search_movie
+		service = MovieDatabaseAPIService.new(api_key: "777819116e63a4620e70c4ea31f00333")
+		movie = service.search_movie(params[:name], params[:release_year])
+		if service.errors.empty?
+			render json: movie
+		else
+			render json: { errors: service.errors }, :status => :unprocessable_entity
+		end
+	end
+
 	private
 
 	def movie_params
-		params.require(:movie).permit(:title, :subtitle, :quality_id, :three_dimensional, :length, :size, :information, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
+		params.require(:movie).permit(:title, :quality_id, :age_rating, :description, :three_dimensional, :length, :size, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
 	end
 
 	def sort_column

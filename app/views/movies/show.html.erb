@@ -1,7 +1,7 @@
 <div class="movie_description">
 	<%= image_tag @movie.cover(:medium) %>
 	<div class="information">
-		<h2 title="<%= @movie.title %>"><%= truncate(@movie.title, length: 30, truncate_string: "...") %><%= "<small> - #{@movie.subtitle}</small>".html_safe unless @movie.subtitle.empty? %></h2>
+		<h2 title="<%= @movie.title %>"><%= truncate(@movie.title, length: 30, truncate_string: "...") %></h2>
 		<div><span>Erscheinungsjahr:</span><%= @movie.release_year %></div>
 		<div><span>Dauer:</span><%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %></div>
 		<div><span>Größe:</span><%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte</div>
@@ -23,6 +23,10 @@
 	<div class="clear"></div>
 	<%= render partial: "movies/toggle_button" %>
 </div>
+
+<% unless @movie.description.blank? %>
+	<p style="font-size: 16px"><%= @movie.description %></p>
+<% end %>
 
 <% if @current_user.is_admin? %>
 	<%= link_to "Bearbeiten", edit_movie_path(@movie), class: "button small" %>
@@ -56,13 +60,7 @@
 	<% unless @current_user.has_rated?(@movie) %>
 		<h3>Bewertung schreiben</h3>
 		<%= form_for [@movie, @rating] do |f| %>
-			<% if @rating.errors.any? %>
-			<ul>
-				<% @rating.errors.full_messages.each do |msg| %>
-					<li><%= msg %></li>
-				<% end %>
-			</ul>
-			<% end %>
+			<%= render partial: "shared/error_messages", locals: { errors: @rating.errors.full_messages } %>
 			<p>
 				<%= f.label :rating_general %>
 				<%= f.select :rating_general, 10.downto(0).to_a %>
@@ -75,7 +73,7 @@
 				<%= f.label :comment %>
 				<%= f.text_area :comment %>
 			</p>
-			<p><%= f.submit %></p>
+			<p><%= f.submit "Speichern", class: "button" %></p>
 		<% end %>
 	<% end %>
 </div>

@@ -1,12 +1,5 @@
 <%= form_for [@movie, @rating] do |f| %>
-	<% if @rating.errors.any? %>
-	<ul>
-		<% @rating.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
-	<% end %>
-	
+	<%= render partial: "shared/error_messages", locals: { errors: @rating.errors.full_messages } %>
 	<p>
 		<%= f.label :rating_general %>
 		<%= f.select :rating_general, 10.downto(0).to_a %>
@@ -19,5 +12,5 @@
 		<%= f.label :comment %>
 		<%= f.text_area :comment %>
 	</p>
-	<p><%= f.submit %></p>
+	<p><%= f.submit "Bearbeiten", class: "button" %></p>
 <% end %>

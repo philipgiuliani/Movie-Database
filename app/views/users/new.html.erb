@@ -1,13 +1,6 @@
 <h2>Neuen Benutzer angelegen</h2>
 <%= form_for @user do |f| %>
-	<% if @user.errors.any? %>
-	<ul>
-		<% @user.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
-	<% end %>
-
+	<%= render partial: "shared/error_messages", locals: { errors: @user.errors.full_messages } %>
 	<p>
 		<%= f.label :username %>
 		<%= f.text_field :username %>

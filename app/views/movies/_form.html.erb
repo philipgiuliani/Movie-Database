@@ -1,18 +1,9 @@
 <%= form_for @movie, html: { multipart: true } do |f| %>
-	<% if @movie.errors.any? %>
-	<ul>
-		<% @movie.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
-	<% end %>
+	<%= render partial: "shared/error_messages", locals: { errors: @movie.errors.full_messages } %>
 	<p>
 		<%= f.label :title %>
 		<%= f.text_field :title %>
-	</p>
-	<p>
-		<%= f.label :subtitle %>
-		<%= f.text_field :subtitle %>
+		<%= button_tag "Synchronisieren", data_url: "/movie/api/search/", class: "button", id: "synchronize" %>
 	</p>
 	<p>
 		<%= f.label :release_year %>
@@ -21,6 +12,10 @@
 	<p>
 		<%= f.label :quality_id %>
 		<%= f.select :quality_id, Quality.all.map { |quality| [quality.name, quality.id] } %>
+	</p>
+	<p>
+		<%= f.label :age_rating %>
+		<%= f.select :age_rating, [0,6,12,16,18].map { |age| ["FSK ab #{age} freigegeben", age] }, include_blank: "Unbekannt" %>
 	</p>
 	<p>
 		<%= f.label :size %>
@@ -43,8 +38,8 @@
 		<%= f.check_box :show_recommended %>
 	</p>
 	<p>
-		<%= f.label :information %>
-		<%= f.text_area :information %>
+		<%= f.label :description %>
+		<%= f.text_area :description %>
 	</p>
 	<p>
 		<%= f.label :genres %>

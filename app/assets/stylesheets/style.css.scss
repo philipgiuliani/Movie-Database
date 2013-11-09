@@ -424,9 +424,16 @@ form {
 				.caption {
 					height: 35px;
 					line-height: 35px;
-					background: rgba(0,0,0,.8);
 					font-size: 16px;
 					padding: 0 10px;
+
+					background: -moz-linear-gradient(top, rgba(0,0,0,0.23) 0%, rgba(0,0,0,0.75) 100%);
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.23)), color-stop(100%,rgba(0,0,0,0.75)));
+					background: -webkit-linear-gradient(top, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.75) 100%);
+					background: -o-linear-gradient(top, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.75) 100%);
+					background: -ms-linear-gradient(top, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.75) 100%);
+					background: linear-gradient(to bottom, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.75) 100%);
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b000000', endColorstr='#bf000000',GradientType=0 );
 				}
 			}
 		}
@@ -488,6 +495,7 @@ form {
 			float: left;
 			width: 755px;
 			line-height: 24px;
+			word-wrap: break-word;
 
 			b {
 				font-weight: 500;
@@ -647,6 +655,7 @@ form {
 			float:left;
 			width: 545px;
 			margin-right: 15px;
+			word-break: break-word;
 
 			&:first-line {
 				font-weight: 500;

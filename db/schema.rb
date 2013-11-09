@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019135301) do
+ActiveRecord::Schema.define(version: 20131108212816) do
 
   create_table "genres", force: true do |t|
     t.string   "name"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20131019135301) do
     t.string   "title"
     t.integer  "quality_id"
     t.boolean  "three_dimensional"
-    t.text     "information"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
@@ -43,7 +42,8 @@ ActiveRecord::Schema.define(version: 20131019135301) do
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
     t.boolean  "show_recommended"
-    t.string   "subtitle"
+    t.text     "description"
+    t.integer  "age_rating"
   end
 
   create_table "qualities", force: true do |t|

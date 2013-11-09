@@ -14,6 +14,9 @@ Moviedatabase::Application.routes.draw do
 		post :seen_movies, action: "toggle_status", controller: :seen_movies
 	end
 
+
+	post "movie/api/search/", to: "movies#api_search_movie", as: "api_movie"
+
 	get "login", to: "sessions#new", as: "login"
 	post "sessions" => "sessions#create", as: "sessions"
 	delete "logout" => "sessions#destroy", as: "logout"

@@ -9,7 +9,6 @@ de:
     attributes:
       movie:
         title: "Titel"
-        subtitle: "Untertitel"
         quality_id: "Qualität"
         three_dimensional: "3D"
         release_year: "Erscheinungsjahr"
@@ -17,7 +16,8 @@ de:
         cover: "Cover"
         length: "Länge"
         show_recommended: "Empfohlen"
-        information: "Information"
+        description: "Kurztext"
+        age_rating: "Altersfreigabe"
       rating:
         comment: "Kommentar"
         user: "Benutzer"

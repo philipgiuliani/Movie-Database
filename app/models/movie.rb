@@ -25,6 +25,7 @@ class Movie < ActiveRecord::Base
 	validates :release_year, presence: true, length: { is: 4 }, numericality: { only_integer: true }
 	validates :size, presence: true, numericality: { only_integer: true }
 	validates :length, presence: true, numericality: { only_integer: true }
+	validates :age_rating, numericality: true, allow_blank: true
 	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..5.megabytes }
 
 	def self.search(search)

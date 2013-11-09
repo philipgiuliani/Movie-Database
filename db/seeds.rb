@@ -15,24 +15,26 @@ Quality.create([
 ]);
 
 Genre.create([
-	{name: "Abenteuer"},
-	{name: "Action"},
-	{name: "Animation"},
-	{name: "Dokumentarfilm"},
-	{name: "Drama"},
-	{name: "Familie"},
-	{name: "Eastern"},
-	{name: "Fantasy"},
-	{name: "Geschichte"},
-	{name: "Horror"},
-	{name: "Komödie"},
-	{name: "Krimi"},
-	{name: "Thriller"},
-	{name: "Science Fiction"},
-	{name: "Lovestory"},
-	{name: "Mystery"},
-	{name: "Familie"},
-	{name: "Sport"},
-	{name: "Western"},
-	{name: "Holiday"}
+	{id: 1, name: "Abenteuer"},
+	{id: 2,name: "Action"},
+	{id: 3,name: "Animation"},
+	{id: 4,name: "Dokumentarfilm"},
+	{id: 5,name: "Drama"},
+	{id: 6,name: "Familie"},
+	{id: 7,name: "Eastern"},
+	{id: 8,name: "Fantasy"},
+	{id: 9,name: "Geschichte"},
+	{id: 10,name: "Horror"},
+	{id: 11,name: "Komödie"},
+	{id: 12,name: "Krimi"},
+	{id: 13,name: "Thriller"},
+	{id: 14,name: "Science Fiction"},
+	{id: 15,name: "Lovestory"},
+	{id: 16,name: "Mystery"},
+	{id: 17,name: "Familie"}, # is two times in the genres list
+	{id: 18,name: "Sport"},
+	{id: 19,name: "Western"},
+	{id: 20,name: "Holiday"}
 ]);
+
+Genre.find(17).destroy
