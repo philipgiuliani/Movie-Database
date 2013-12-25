@@ -10,8 +10,9 @@ Moviedatabase::Application.routes.draw do
 	resources :wishes, except: :show
 
 	resources :movies do
-		resources :ratings, only: [:create, :edit, :update, :destroy]
+		resources :ratings, except: [:show]
 		post :seen_movies, action: "toggle_status", controller: :seen_movies
+		post :votes, action: "vote", controller: :votes
 	end
 
 

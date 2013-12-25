@@ -1,0 +1,8 @@
+<div id="vote_button">
+	<% vote = @movie.votes.where(user_id: @current_user.id).first if @current_user.has_voted?(@movie) %>
+	<% votes_down = @movie.votes.where(value: 0).count %>
+	<% votes_up = @movie.votes.where(value: 1).count %>
+
+	<%= link_to "", movie_votes_path(@movie, value: 1), title: t("text.movie.votes_up", count: votes_up), class: (vote && vote.value == 1 ? "button thumb thumbup active tooltip" : "button thumb thumbup tooltip"), remote: true, method: :post %>
+	<%= link_to "", movie_votes_path(@movie, value: 0), title: t("text.movie.votes_down", count: votes_down), class: (vote && vote.value == 0 ? "button thumb thumbdown active tooltip" : "button thumb thumbdown tooltip"), remote: true, method: :post %>
+</div>

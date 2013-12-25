@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
 gem 'mysql2'
 
 # Use SCSS for stylesheets
@@ -49,3 +48,12 @@ gem 'exception_notification', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+end
+
+group :test do
+	gem 'sqlite3'
+	gem 'factory_girl_rails'
+end

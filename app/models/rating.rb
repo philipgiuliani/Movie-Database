@@ -2,12 +2,14 @@ class Rating < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :movie
 
-	validates :comment, presence: true, :length => { :minimum => 30 }
+	validates :comment, presence: true, length: { minimum: 30 }
 	validate :already_rated_this_movie, on: :create
 
 	def rating_average
 		(self.rating_general + self.rating_quality) / 2;
 	end
+
+	private
 
 	def already_rated_this_movie
 		movie = Movie.find(self.movie_id)

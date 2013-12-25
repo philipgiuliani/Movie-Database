@@ -50,7 +50,7 @@ class MoviesController < ApplicationController
 		if service.errors.empty?
 			render json: movie
 		else
-			render json: { errors: service.errors }, :status => :unprocessable_entity
+			render json: { errors: service.errors }, status: :unprocessable_entity
 		end
 	end
 
@@ -58,6 +58,10 @@ class MoviesController < ApplicationController
 
 	def movie_params
 		params.require(:movie).permit(:title, :quality_id, :age_rating, :description, :three_dimensional, :length, :size, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
+	end
+
+	def vote_params
+		params.require(:vote).permit()
 	end
 
 	def sort_column

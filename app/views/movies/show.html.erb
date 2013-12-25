@@ -1,7 +1,7 @@
 <div class="movie_description">
 	<%= image_tag @movie.cover(:medium) %>
 	<div class="information">
-		<h2 title="<%= @movie.title %>"><%= truncate(@movie.title, length: 30, truncate_string: "...") %></h2>
+		<h2 title="<%= @movie.title %>"><%= truncate(@movie.title, length: 26, truncate_string: "...") %></h2>
 		<div><span>Erscheinungsjahr:</span><%= @movie.release_year %></div>
 		<div><span>Dauer:</span><%= t("text.movie.hours", count: @movie.length/60) %> <%= t("text.movie.minutes", count: @movie.length%60) %></div>
 		<div><span>Größe:</span><%= number_with_precision(@movie.size/1024.0, precision: 2) %> Gigabyte</div>
@@ -12,7 +12,7 @@
 			<div class="avatars_small">
 				<% if @movie.seen_movies.count > 0 %>
 					<% @movie.seen_movies.each do |seen_movie| %>
-						<%= link_to (image_tag seen_movie.user.avatar(:small)), user_path(seen_movie.user), title: seen_movie.user.full_name %>
+						<%= link_to (image_tag seen_movie.user.avatar(:small)), user_path(seen_movie.user), title: seen_movie.user.full_name, class: "tooltip" %>
 					<% end %>
 				<% else %>
 					<%= t("text.movie.persons", count: 0) %>
@@ -21,12 +21,20 @@
 		</div>
 	</div>
 	<div class="clear"></div>
-	<%= render partial: "movies/toggle_button" %>
+	<div id="movie_action_buttons">
+		<%= render partial: "movies/vote_button" %>
+		<%= render partial: "movies/toggle_button" %>
+		<div class="clear"></div>
+	</div>
 </div>
 
 <% unless @movie.description.blank? %>
-	<p style="font-size: 16px"><%= @movie.description %></p>
+	<div class="movie_description_text">
+		<div class="collapsed"><%= @movie.description %></div>
+		<%= link_to "&raquo; Weiterlesen".html_safe, "javascript:void(0)" %>
+	</div>
 <% end %>
+
 
 <% if @current_user.is_admin? %>
 	<%= link_to "Bearbeiten", edit_movie_path(@movie), class: "button small" %>

@@ -1,6 +1,17 @@
 jQuery ->
 	$(document).on "ajax:success", "#toggle_button a", (e, data, status, xhr) ->
-		$("#toggle_button").html data
+		$("#toggle_button").replaceWith data
+
+	$(document).on "ajax:success", "#vote_button a", (e, data, status, xhr) ->
+		$("#vote_button").replaceWith data
+		$(".tooltip").tipTip
+			delay: 50
+		$(".tooltip").removeClass ".tooltip"
+
+	$(document).on 'ready page:load', ->
+		$(".tooltip").tipTip
+			delay: 50
+		$(".tooltip").removeClass ".tooltip"
 
 	$(document).on "click", "#synchronize", (event) ->
 		event.preventDefault()
@@ -34,3 +45,11 @@ jQuery ->
 			complete: ->
 				$(button).removeAttr "disabled"
 				$(button).text "Synchronisieren"
+
+	$(document).on "click", ".movie_description_text > a", (event) ->
+		event.preventDefault()
+		button = $(this)
+		description = $(".movie_description_text > div")
+		if description.hasClass "collapsed"
+			description.removeClass "collapsed"
+			button.remove()

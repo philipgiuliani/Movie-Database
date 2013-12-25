@@ -54,6 +54,8 @@ de:
         already_rated: "hat bereits bewertet"
   links:
     new_movie: "Film hinzufügen"
+    new_session: "Anmelden"
+    new_user: "Registrieren"
   messages:
     new_movie: "Film wurde erfolgreich angelegt."
     edit_movie: "Film wurde erfolgreich geändert."
@@ -74,6 +76,18 @@ de:
       persons:
         one: "1 Person"
         other: "%{count} Personen"
+      votes_up:
+        one: "1 Person gefällt dieser Film"
+        other: "#{count} Personen gefällt dieser Film"
+        zero: "0 Personen gefällt dieser Film"
+      votes_down:
+        one: "1 Person gefällt dieser Film nicht"
+        other: "#{count} Personen gefällt dieser Film nicht"
+        zero: "0 Personen gefällt dieser Film nicht"
+    session:
+      username: "Benutzername"
+      passwort: "Passwort"
+      remember_me: "Daten merken"
   will_paginate:
     previous_label: "Zurück"
     next_label: "Vorwärts"

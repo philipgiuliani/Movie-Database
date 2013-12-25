@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108212816) do
+ActiveRecord::Schema.define(version: 20131204183312) do
 
   create_table "genres", force: true do |t|
     t.string   "name"
@@ -94,6 +94,15 @@ ActiveRecord::Schema.define(version: 20131108212816) do
     t.string   "highlights_view",     default: "recommended"
     t.string   "email"
     t.boolean  "newsletter",          default: true
+  end
+
+  create_table "votes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "value"
+    t.integer  "voteable_id"
+    t.string   "voteable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "wishes", force: true do |t|

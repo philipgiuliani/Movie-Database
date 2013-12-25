@@ -7,27 +7,30 @@ class MovieDatabaseAPIService
 	end
 
 	def search_movie(name, release_year)
-		search = api_request("search/movie", { query: name, primary_release_year: release_year, language: "DE" })
-		if search
-			puts search
-			if search["results"].any?
-				movie_id = search["results"].first["id"]
-				movie = api_request("movie/#{movie_id}", { language: "DE", append_to_response: "releases" })
-				if movie && movie["status_code"] != 6
-						# format the result
-						age_rating = movie["releases"]["countries"].select { |country| country["iso_3166_1"] == "DE" }
-						movie["age_rating"] = age_rating.first["certification"] unless age_rating.empty?
-						movie["genres"] = genres_mapper(movie["genres"].map { |genre| genre["id"] })
+		if name.present? && release_year.present?
+			search = api_request("search/movie", { query: name, primary_release_year: release_year, language: "DE" })
+			if search
+				if search["results"].any?
+					movie_id = search["results"].first["id"]
+					movie = api_request("movie/#{movie_id}", { language: "DE", append_to_response: "releases" })
+					if movie && movie["status_code"] != 6
+							# format the result
+							age_rating = movie["releases"]["countries"].select { |country| country["iso_3166_1"] == "DE" }
+							movie["age_rating"] = age_rating.first["certification"] unless age_rating.empty?
+							movie["genres"] = genres_mapper(movie["genres"].map { |genre| genre["id"] })
 
-						movie.to_json(only: ["id", "title", "backdrop_path", "age_rating", "overview", "genres"])
+							movie.to_json(only: ["id", "title", "backdrop_path", "age_rating", "overview", "genres"])
+					else
+						@errors << "Der Film konnte nicht gefunden werden"
+					end
 				else
 					@errors << "Der Film konnte nicht gefunden werden"
 				end
 			else
-				@errors << "Der Film konnte nicht gefunden werden"
+				@errors << "Es konnte keine Verbindung zu der API hergestellt werden"
 			end
 		else
-			@errors << "Es konnte keine Verbindung zu der API hergestellt werden"
+			@errors << "Name und das Erscheinungsjahr darf nicht leer sein"
 		end
 	end
 

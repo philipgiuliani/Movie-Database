@@ -15,6 +15,7 @@ class Movie < ActiveRecord::Base
 
 	has_many :movie_genres, dependent: :destroy
 	has_many :genres, through: :movie_genres
+	has_many :votes, as: :voteable
 
 	before_create :before_create
 	before_update :before_update
@@ -35,11 +36,11 @@ class Movie < ActiveRecord::Base
 			scoped
 		end
 	end
-
+	
 	def rating_average_of(average_key)
 		self.ratings.count > 0 ? (self.ratings.sum(average_key) / self.ratings.count) : 0
 	end
-	
+
 	private
 
 	def before_create 
