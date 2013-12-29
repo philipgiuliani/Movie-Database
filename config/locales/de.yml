@@ -78,12 +78,10 @@ de:
         other: "%{count} Personen"
       votes_up:
         one: "1 Person gefällt dieser Film"
-        other: "#{count} Personen gefällt dieser Film"
-        zero: "0 Personen gefällt dieser Film"
+        other: "%{count} Personen gefällt dieser Film"
       votes_down:
         one: "1 Person gefällt dieser Film nicht"
-        other: "#{count} Personen gefällt dieser Film nicht"
-        zero: "0 Personen gefällt dieser Film nicht"
+        other: "%{count} Personen gefällt dieser Film nicht"
     session:
       username: "Benutzername"
       passwort: "Passwort"
