@@ -20,7 +20,11 @@
 				<span>Dauer:</span><%= t("text.movie.hours", count: movie.length/60) %> <%= t("text.movie.minutes", count: movie.length%60) %><br />
 				<span>Gesehen:</span><%= t("text.movie.persons", count: movie.seen_movies.count) %>
 			</div>
-			<%= image_tag("accepted.png", class: "visited") if @current_user.has_seen?(movie) %>
+			<% if @current_user.has_seen?(movie) %>
+				<%= image_tag("movie_seen_marker.png", class: "movie_badge") %>
+			<% elsif movie.created_at > Time.now - 1.week %>
+				<%= image_tag("movie_new_marker.png", class: "movie_badge") %>
+			<% end %>
 			<div class="clear"></div>
 		<% end %>
 	<% end %>

@@ -341,15 +341,12 @@ form {
 	}
 
 	h2 {
-		color: #ffffff;
-		text-shadow: 0 1px 2px rgba(0,0,0,.5);
 		text-align: center;
-
 		a {
 			color: #ffffff;
 			text-decoration: none;
-			font-size: 14px;
 			vertical-align: middle;
+			text-shadow: 0 1px 2px rgba(0,0,0,.5);
 
 			&:hover {
 				color: $color_main;
@@ -390,7 +387,7 @@ form {
 					font-size: 0.8em;
 				}
 			}
-
+			
 			&.small {
 				width: 260px;
 				height: 145px;
@@ -866,10 +863,10 @@ form {
 			width: 100px;
 		}
 
-		img.visited {
+		img.movie_badge {
 			position: absolute;
-			right: 10px;
-			top: 8px;
+			right: 0;
+			top: 0;
 		}
 
 		.information {
@@ -942,7 +939,7 @@ form {
 
 			span {
 				display: inline-block;
-				width: 80px;
+				width: 120px;
 			}
 
 			h4 {

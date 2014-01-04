@@ -69,6 +69,6 @@ class UsersController < ApplicationController
 	end
 
 	def user_params_edit
-		params.require(:user).permit(:username, :firstname, :lastname, :email, :newsletter, :password, :password_confirmation, :avatar, :highlights_view)
+		params.require(:user).permit(:username, :firstname, :lastname, :email, :newsletter, :password, :password_confirmation, :avatar)
 	end
 end

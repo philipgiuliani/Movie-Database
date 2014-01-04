@@ -8,7 +8,8 @@
 			<%= image_tag user.avatar(:medium), class: "avatar" %>
 			<div class="information">
 				<h4><%= user.full_name %></h4>
-				<span>Gesehen:</span><%= user.seen_movies.length %><br />
+				<span>Gesehen:</span><%= user.seen_movies.length %><br>
+				<span>Abgestimmt:</span><%= user.votes.length %><br>
 				<span>Bewertet:</span><%= user.ratings.length %>
 			</div>
 			<div class="clear"></div>

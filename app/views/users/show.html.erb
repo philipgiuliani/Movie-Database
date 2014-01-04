@@ -2,7 +2,8 @@
 	<%= image_tag @user.avatar.url(:medium) %>
 	<span class="information">
 		<h2><%= @user.full_name %></h2>
-		<span>Gesehene Filme:</span> <%= @user.seen_movies.count %><br />
+		<span>Gesehene Filme:</span> <%= @user.seen_movies.count %><br>
+		<span>Abgestimmt:</span> <%= @user.votes.count %><br>
 		<span>Bewertete Filme:</span> <%= @user.ratings.count %>
 	</span>
 	<div class="clear"></div>
