@@ -66,7 +66,8 @@ class MovieDatabaseAPIService
 			[16,9648], # Mystery
 			[18,9805], # Sport
 			[19,37], # Western
-			[20,10595] # Holiday
+			[20,10595], # Holiday
+			[21,1115] # Road Movie
 		]
 
 		genres_array.map do |genre_id|
