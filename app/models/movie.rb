@@ -2,7 +2,7 @@ class Movie < ActiveRecord::Base
 	attr_accessor :editing_user
 	attr_accessor :cover
 
-	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" },
+	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" }, convert_options:  { small: "-quality 75 -strip" },
 										url: "/assets/:attachment/:id/:style.:extension",
 										path: ":rails_root/public/assets/:attachment/:id/:style.:extension",
 										default_url: "/assets/:attachment/missing/:style.png"
