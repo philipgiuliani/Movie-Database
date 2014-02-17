@@ -29,6 +29,10 @@ class Movie < ActiveRecord::Base
 	validates :age_rating, numericality: true, allow_blank: true
 	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..5.megabytes }
 
+	def to_param
+		"#{id} #{title}".parameterize
+	end
+
 	def self.search(search)
 		if search
 			where("title LIKE ?", "%#{search}%")
