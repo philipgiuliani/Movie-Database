@@ -4,8 +4,6 @@ class UserMailer < ActionMailer::Base
 	def weekly_movies_email(user, movies)
 		@movies = movies
 		@user = user
-		unless user.email.blank?
-			mail(to: user.email, subject: "Neue Filme der #{Date.today.cweek}. Woche #{Time.today.year}")
-		end
+		mail(to: user.email, subject: "Neue Filme der #{Date.today.cweek}. Woche #{Date.today.year}") unless user.email.blank?
 	end
 end

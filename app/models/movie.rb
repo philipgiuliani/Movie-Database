@@ -4,7 +4,7 @@ class Movie < ActiveRecord::Base
 
 	scope :last_week, -> { where("created_at > ?", Time.now - 1.week) }
 
-	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" },
+	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" }, convert_options:  { small: "-quality 75 -strip" },
 										url: "/assets/:attachment/:id/:style.:extension",
 										path: ":rails_root/public/assets/:attachment/:id/:style.:extension",
 										default_url: "/assets/:attachment/missing/:style.png"
@@ -30,6 +30,10 @@ class Movie < ActiveRecord::Base
 	validates :length, presence: true, numericality: { only_integer: true }
 	validates :age_rating, numericality: true, allow_blank: true
 	validates_attachment :cover, presence: true, content_type: { content_type: ["image/jpeg", "image/png"] }, size: { in: 0..5.megabytes }
+
+	def to_param
+		"#{id} #{title}".parameterize
+	end
 
 	def self.search(search)
 		if search
