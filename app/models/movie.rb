@@ -1,6 +1,8 @@
 class Movie < ActiveRecord::Base
-	attr_accessor :editing_user
-	attr_accessor :cover
+
+	attr_accessor :editing_user, :cover
+
+	scope :last_week, -> { where("created_at > ?", Time.now - 1.week) }
 
 	has_attached_file :cover, styles: { big: "540x810>", medium: "300x450>", small: "100x150>" },
 										url: "/assets/:attachment/:id/:style.:extension",

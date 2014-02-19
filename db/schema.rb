@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140104212001) do
+ActiveRecord::Schema.define(version: 20140109193817) do
 
   create_table "genres", force: true do |t|
     t.string   "name"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20140104212001) do
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
-    t.boolean  "show_recommended"
     t.text     "description"
     t.integer  "age_rating"
   end

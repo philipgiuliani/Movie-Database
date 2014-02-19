@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+	
 	before_filter :require_login
 	before_filter :require_admin, only: [:update, :edit, :destroy, :create, :new, :api_search_movie]
 
@@ -57,11 +58,7 @@ class MoviesController < ApplicationController
 	private
 
 	def movie_params
-		params.require(:movie).permit(:title, :quality_id, :age_rating, :description, :three_dimensional, :length, :size, :show_recommended, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
-	end
-
-	def vote_params
-		params.require(:vote).permit()
+		params.require(:movie).permit(:title, :quality_id, :age_rating, :description, :three_dimensional, :length, :size, :release_year, :cover, :genre_ids => []).merge(editing_user: current_user)
 	end
 
 	def sort_column

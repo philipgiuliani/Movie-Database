@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+
 	attr_accessor :avatar
+
+	scope :newsletter_enabled, -> { where("newsletter = ?", true) }
+
 	has_secure_password
 
 	has_attached_file :avatar, styles: { big: "300x300>", medium: "160x160>", small: "100x100>" },
@@ -43,9 +47,21 @@ class User < ActiveRecord::Base
 		votes.where("voteable_type = ? and voteable_id = ?", object.class, object.id).present?
 	end
 
+	def watched_genres
+		ActiveRecord::Base.connection.exec_query("
+			SELECT genres.id, genres.name, COUNT(movie_genres.genre_id) AS times_watched
+			FROM seen_movies
+			INNER JOIN movies ON seen_movies.movie_id = movies.id
+			INNER JOIN movie_genres ON movie_genres.movie_id = seen_movies.movie_id
+			INNER JOIN genres ON movie_genres.genre_id = genres.id
+			WHERE seen_movies.user_id = #{self.id}
+			GROUP BY seen_movies.user_id, movie_genres.genre_id HAVING times_watched > 0
+			ORDER BY times_watched DESC").to_hash
+	end
+
 	def self.weekly_update
-		movies = Movie.where("created_at > ?", Time.now - 1.week).includes(:quality)
-		User.where("newsletter = 1").each do |user|
+		movies = Movie.last_week.includes(:quality)
+		User.newsletter_enabled.each do |user|
 			UserMailer.weekly_movies_email(user, movies).deliver
 		end
 	end
